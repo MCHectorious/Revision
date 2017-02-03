@@ -19,6 +19,7 @@ public class Home extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.add_white);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

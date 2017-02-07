@@ -1,13 +1,21 @@
 package com.example.betteridgeh16.revisionapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import static com.example.betteridgeh16.revisionapp.R.id.fab;
 
 public class Home extends AppCompatActivity {
 
@@ -17,6 +25,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        String[] Courses = new String[] {};
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.add_white);
@@ -27,6 +36,26 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        if(getIntent() != null){
+            getIntent().getStringExtra("Course");
+
+        }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        TextView textView = new TextView(this);
+        textView.setText("You currently have no courses. To add courses and continue click OK");
+        textView.setTextColor(Color.WHITE);
+        alertDialogBuilder.setView(textView);
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(Home.this,Courses.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
     }
 
     @Override

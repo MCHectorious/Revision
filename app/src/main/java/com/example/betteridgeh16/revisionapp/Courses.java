@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class Courses extends AppCompatActivity {
     ProgressDialog mProgressDialog;
-    ListView listView = (ListView) findViewById(R.id.List);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,7 @@ public class Courses extends AppCompatActivity {
         String title;
         //String[] courses;
 
-        List<String> CourseList;
+        List<String> CourseList = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -75,10 +76,12 @@ public class Courses extends AppCompatActivity {
                 // Connect to the web site
                 Document document = Jsoup.connect("http://www.aqa.org.uk/subjects").get();
                 // Get the html document title
-                Elements elements = document.select("a[]");
+                Elements elements = document.select("a[href]");
 
                 for (Element e:elements){
-                    CourseList.add(e.text());
+                    if (e.attr("href").contains("subjects")){
+                        CourseList.add(e.text());
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -91,9 +94,9 @@ public class Courses extends AppCompatActivity {
             // Set title into TextView
             TextView textView = (TextView) findViewById(R.id.tv);
             textView.setText(title);
-
+            Log.i("hi",Integer.toString(CourseList.size()));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
-
+            ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
 
             mProgressDialog.dismiss();

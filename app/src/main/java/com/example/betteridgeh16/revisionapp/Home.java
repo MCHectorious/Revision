@@ -49,7 +49,7 @@ public class Home extends AppCompatActivity {
         alertDialogBuilder.setView(textView);
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(Home.this,Courses.class);
+                Intent intent = new Intent(Home.this,ExamBoards.class);
                 startActivity(intent);
             }
         });

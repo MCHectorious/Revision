@@ -49,7 +49,7 @@ public class Courses extends AppCompatActivity {
         //String[] courses;
 
         List<String> CourseList = new ArrayList<>();
-
+        Elements elements;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -64,9 +64,9 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect("http://www.aqa.org.uk/subjects").get();
+                Document document = Jsoup.connect("http://www.aqa.org.uk/subjects").timeout(10000).get();
                 // Get the html document title
-                Elements elements = document.select("a[href]");
+                elements = document.select("a[href]");
 
                 for (Element e:elements){
                     if(e.attr("href").contains("subjects/") ){
@@ -98,7 +98,13 @@ public class Courses extends AppCompatActivity {
                     Snackbar.make(view,CourseList.toArray(new String[0])[position],Snackbar.LENGTH_LONG)
                             .setAction("Action",null).show();
 
-                    subject = CourseList.toArray(new String[0])[position];
+                    for (Element element:elements){
+                        if(element.text().equals(CourseList.toArray(new String[0])[position])){
+                            subject = element.attr("href");
+                        }
+                    }
+
+
                     (new ExactSubject()).execute();
                 }
 
@@ -120,7 +126,7 @@ public class Courses extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(Courses.this);
-            mProgressDialog.setTitle("Getting a list of qualifications relating to " + subject);
+            mProgressDialog.setTitle("Getting a list of qualifications");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -130,15 +136,19 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect("http://www.aqa.org.uk/subjects/"+subject.toLowerCase()).get();
+                Document document = Jsoup.connect(subject).timeout(15000).get();
                 // Get the html document title
-                Elements elements = document.select("a[href]");
+
+                Elements elements = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
 
                 for (Element e:elements){
-                    try{
-                        Integer examCode = Integer.parseInt(e.attr("href").substring(e.attr("href").indexOf("(") +1, e.attr("href").indexOf(")")));
+                    //try{
+                    if(e.attr("href").contains(subject)){
                         CourseList.add(e.text());
-                    }catch (NumberFormatException e1){}
+                    }
+                      //  Integer examCode = Integer.parseInt(e.attr("href").substring(e.attr("href").indexOf("(") +1, e.attr("href").indexOf(")")));
+
+                    //}catch (Exception e1){}
 
                 }
             } catch (IOException e) {

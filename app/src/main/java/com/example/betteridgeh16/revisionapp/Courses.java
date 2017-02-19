@@ -84,7 +84,7 @@ public class Courses extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // Set title into TextView
             Log.i("hi",Integer.toString(CourseList.size()));
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -149,7 +149,9 @@ public class Courses extends AppCompatActivity {
                       //  Integer examCode = Integer.parseInt(e.attr("href").substring(e.attr("href").indexOf("(") +1, e.attr("href").indexOf(")")));
 
                     //}catch (Exception e1){}
-
+                    if(CourseList.size()==0){
+                        CourseList.add("No courses were found. Sorry.");
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -182,6 +184,7 @@ public class Courses extends AppCompatActivity {
             });
 
             mProgressDialog.dismiss();
+            //TODO: use http://tika.apache.org/ to extract text from pdf or use http://www.rgagnon.com/javadetails/java-extract-text-from-a-pdf.html
 
 
 

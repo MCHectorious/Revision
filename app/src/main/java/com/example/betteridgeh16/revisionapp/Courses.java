@@ -121,7 +121,7 @@ public class Courses extends AppCompatActivity {
         //String[] courses;
 
         List<String> CourseList = new ArrayList<>();
-
+        List<String> WebsiteList = new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -132,6 +132,12 @@ public class Courses extends AppCompatActivity {
             mProgressDialog.show();
         }
 
+        private void addToArrayLists(Element e){
+            CourseList.add(e.text());
+            CourseList.add(e.attr("href"));
+
+        }
+
         @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -139,19 +145,14 @@ public class Courses extends AppCompatActivity {
                 Document document = Jsoup.connect(subject).timeout(15000).get();
                 // Get the html document title
 
-                Elements elements = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
+                Elements elementsFromFormat1 = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
+                Elements elementsFromFormat2 = document.select("div[class=listSpecs clearfix").select("a[href]");
 
-                for (Element e:elements){
-                    //try{
-                    if(e.attr("href").contains(subject)){
-                        CourseList.add(e.text());
-                    }
-                      //  Integer examCode = Integer.parseInt(e.attr("href").substring(e.attr("href").indexOf("(") +1, e.attr("href").indexOf(")")));
-
-                    //}catch (Exception e1){}
-                    if(CourseList.size()==0){
+                for (Element e:elementsFromFormat1){addToArrayLists(e);}
+                for (Element e:elementsFromFormat2){if(!e.text().equals("")){addToArrayLists(e);}}
+                if(CourseList.size()==0){
+                        Log.i("None Found","Yes");
                         CourseList.add("No courses were found. Sorry.");
-                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -162,7 +163,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             // Set title into TextView
-            Log.i("hi",Integer.toString(CourseList.size()));
+            //Log.i("size",Integer.toString(CourseList.size()));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
@@ -178,6 +179,10 @@ public class Courses extends AppCompatActivity {
                             .setAction("Action",null).show();
 
                     subject = CourseList.toArray(new String[0])[position];
+                    String website = WebsiteList.toArray(new String[0])[position];
+
+                    FileManipulation.writeToFile(subject+"\t"+website,Courses.this);
+                    intent.putExtra("subjectListUpdated", true);
 
                 }
 

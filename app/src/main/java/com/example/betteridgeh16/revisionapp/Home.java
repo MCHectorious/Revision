@@ -2,7 +2,6 @@ package com.example.betteridgeh16.revisionapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,9 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import static com.example.betteridgeh16.revisionapp.R.id.fab;
 
 public class Home extends AppCompatActivity {
 
@@ -27,35 +27,36 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //String[] Courses = new String[] {};
-
+        final Intent intent = new Intent(Home.this, ExamBoards.class);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.add_white);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(intent);
             }
         });
 
         String CoursesString = FileManipulation.readFromFile(Home.this);
-
+        Log.i("CoursesString",CoursesString);
         if(CoursesString.equals("")) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             TextView textView = new TextView(this);
             textView.setText("You currently have no courses. To add courses and continue click OK");
             textView.setTextColor(Color.WHITE);
             alertDialogBuilder.setView(textView);
-            alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alertDialogBuilder.setCancelable(false).setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent intent = new Intent(Home.this, ExamBoards.class);
                     startActivity(intent);
                 }
             });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }else{
-            Log.i("CoursesString",CoursesString);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.getSubjectsFromFile(Home.this));
+            ListView listView = (ListView) findViewById(R.id.HomeList);
+            listView.setAdapter(adapter);
+
         }
 
     }

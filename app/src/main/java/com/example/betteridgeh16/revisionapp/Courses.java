@@ -134,7 +134,7 @@ public class Courses extends AppCompatActivity {
 
         private void addToArrayLists(Element e){
             CourseList.add(e.text());
-            CourseList.add(e.attr("href"));
+            WebsiteList.add(e.attr("href"));
 
         }
 
@@ -183,6 +183,7 @@ public class Courses extends AppCompatActivity {
 
                     FileManipulation.writeToFile(subject+"\t"+website,Courses.this);
                     intent.putExtra("subjectListUpdated", true);
+                    startActivity(intent);
 
                 }
 

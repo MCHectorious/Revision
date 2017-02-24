@@ -12,6 +12,8 @@ public class Launcher extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
 
+
+
         Intent intent = new Intent(Launcher.this, Home.class);
         startActivity(intent);
     }

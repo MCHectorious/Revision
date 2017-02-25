@@ -7,7 +7,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="MyTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="MyTheme" parent="android:Theme.Material">
         <item name="android:statusBarColor">@color/DarkestPurple</item>
         <item name="android:navigationBarColor">@color/DarkestPurple</item>
     </style>

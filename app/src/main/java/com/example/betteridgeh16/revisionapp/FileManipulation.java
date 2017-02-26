@@ -21,9 +21,9 @@ public class FileManipulation {
     //public static void createFile(){
     //    File file = new File("courses")
     //}
-    public static void writeToFile(String data,Context context) {
+    public static void writeToFile(String data,String file, Context context) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("courses.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file+ ".txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
@@ -31,13 +31,23 @@ public class FileManipulation {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+    public static void appendToFile(String data,String file, Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file+ ".txt", Context.MODE_PRIVATE));
+            outputStreamWriter.append("\n" + data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 
-    public static String readFromFile(Context context) {
+    public static String fileToString(String file, Context context) {
 
         String result = "";
 
         try {
-            InputStream inputStream = context.openFileInput("courses.txt");
+            InputStream inputStream = context.openFileInput(file + ".txt");
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -61,32 +71,24 @@ public class FileManipulation {
 
         return result;
     }
-    public static List<String> getSubjectsFromFile(Context context) {
+    public static List<String> fileToStringList(String file, Context context) {
 
-        List<String> subjectList = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
         try {
-            InputStream inputStream = context.openFileInput("courses.txt");
+            InputStream inputStream = context.openFileInput(file + ".txt");
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
-                //List<String> subjectList = new ArrayList<>();
-                //List<String> websiteList = new ArrayList<>();
-
+                StringBuilder stringBuilder = new StringBuilder();
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    subjectList.add(receiveString.substring(0,receiveString.indexOf('\t')));
-                   // websiteList.add(receiveString.substring(receiveString.indexOf("\t")));
+                result.add(bufferedReader.readLine());
                 }
 
-               /* result = new String [subjectList.size()][2];
-                for (int i = 1;i<=subjectList.size();i++){
-                    result[i][1] = subjectList.toArray(new String[0])[i];
-                    result[i][2] = websiteList.toArray(new String[0])[i];
-                }
-                */
+                inputStream.close();
 
             }
         }
@@ -96,6 +98,6 @@ public class FileManipulation {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
 
-        return subjectList;
+        return result;
     }
 }

@@ -181,7 +181,13 @@ public class Courses extends AppCompatActivity {
                     subject = CourseList.toArray(new String[0])[position];
                     String website = WebsiteList.toArray(new String[0])[position];
 
-                    FileManipulation.writeToFile(subject+"\t"+website,Courses.this);
+                    if(FileManipulation.fileToString("courses",Courses.this).equals("")){
+                        FileManipulation.writeToFile(subject,"courses",Courses.this);
+                        FileManipulation.writeToFile(website,"websites",Courses.this);
+                    }else{
+                        FileManipulation.appendToFile(subject,"courses",Courses.this);
+                        FileManipulation.appendToFile(website,"websites",Courses.this);
+                    }
                     intent.putExtra("subjectListUpdated", true);
                     startActivity(intent);
 

@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        String CoursesString = FileManipulation.readFromFile(Home.this);
+        String CoursesString = FileManipulation.fileToString("courses",Home.this);
         Log.i("CoursesString",CoursesString);
         if(CoursesString.equals("")) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -53,7 +53,7 @@ public class Home extends AppCompatActivity {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }else{
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.getSubjectsFromFile(Home.this));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.fileToStringList("courses",Home.this));
             ListView listView = (ListView) findViewById(R.id.HomeList);
             listView.setAdapter(adapter);
 

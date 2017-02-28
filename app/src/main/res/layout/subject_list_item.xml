@@ -11,17 +11,17 @@
         app:srcCompat="@drawable/ic_launcher_24dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:id="@+id/imageView"
+        android:id="@+id/subjectIcon"
         android:padding="2dp"/>
 
     <TextView
         android:text="Subject"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:textSize="40sp"
+        android:textSize="28sp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/subjectIcon"
+        android:layout_toEndOf="@+id/subjectIcon"
         android:layout_alignParentRight="true"
         android:padding="2dp"
         android:id="@+id/subjectTextView" />
@@ -30,9 +30,9 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imageView"
-        android:layout_toEndOf="@id/imageView"
-        android:layout_alignBottom="@id/imageView"
+        android:layout_toRightOf="@id/subjectIcon"
+        android:layout_toEndOf="@id/subjectIcon"
+        android:layout_alignBottom="@id/subjectIcon"
         android:layout_below="@id/subjectTextView"
         android:id="@+id/examBoardTextView" />
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/imageView"
+        android:layout_alignBottom="@id/subjectIcon"
         android:layout_below="@id/subjectTextView"
         android:id="@+id/importantDateTextView" />
 
@@ -55,7 +55,7 @@
         android:layout_toEndOf="@id/examBoardTextView"
         android:layout_toLeftOf="@+id/importantDateTextView"
         android:layout_toStartOf="@+id/importantDateTextView"
-        android:layout_alignBottom="@id/imageView"
+        android:layout_alignBottom="@id/subjectIcon"
         android:textAlignment="center"
         />
 

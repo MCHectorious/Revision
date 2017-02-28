@@ -53,7 +53,13 @@ public class Home extends AppCompatActivity {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }else{
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.fileToStringList("courses",Home.this));
+            //ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.fileToStringList("courses",Home.this));
+            Subject subjectData[] = new Subject[]{
+                    new Subject(R.drawable.add_white,"Biology","OCR","A Level","1st May"),
+                    new Subject(R.drawable.ic_launcher_24dp,"Accounting","AQA","GCSE","12th June"),
+                    new Subject(R.drawable.add_white,"Physics","MEI","A Level","25th June")
+            };
+            SubjectAdapter adapter = new SubjectAdapter(Home.this,R.layout.subject_list_item,subjectData);
             ListView listView = (ListView) findViewById(R.id.HomeList);
             listView.setAdapter(adapter);
 

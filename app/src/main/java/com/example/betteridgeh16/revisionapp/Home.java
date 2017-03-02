@@ -37,6 +37,8 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        //FileManipulation.writeToFile("hi","courses",Home.this);
+
         String CoursesString = FileManipulation.fileToString("courses",Home.this);
         Log.i("CoursesString",CoursesString);
         if(CoursesString.equals("")) {

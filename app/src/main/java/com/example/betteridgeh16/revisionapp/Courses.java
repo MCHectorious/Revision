@@ -26,7 +26,8 @@ import java.util.List;
 
 public class Courses extends AppCompatActivity {
     ProgressDialog mProgressDialog;
-    String subject;
+    String subject,website,examBoard,qualificaton,importantDate;
+    String subjectWebsite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +101,7 @@ public class Courses extends AppCompatActivity {
 
                     for (Element element:elements){
                         if(element.text().equals(CourseList.toArray(new String[0])[position])){
-                            subject = element.attr("href");
+                            subjectWebsite = element.attr("href");
                         }
                     }
 
@@ -142,7 +143,7 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect(subject).timeout(15000).get();
+                Document document = Jsoup.connect(subjectWebsite).timeout(15000).get();
                 // Get the html document title
 
                 Elements elementsFromFormat1 = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
@@ -179,17 +180,22 @@ public class Courses extends AppCompatActivity {
                             .setAction("Action",null).show();
 
                     subject = CourseList.toArray(new String[0])[position];
-                    String website = WebsiteList.toArray(new String[0])[position];
+                    website = WebsiteList.toArray(new String[0])[position];
+                    examBoard = "AQA";
 
-                    if(FileManipulation.fileToString("courses",Courses.this).equals("")){
+                    (new CourseInfo()).execute();
+
+                    /*if(FileManipulation.fileToString("courses",Courses.this).equals("")){
                         FileManipulation.writeToFile(subject,"courses",Courses.this);
                         FileManipulation.writeToFile(website,"websites",Courses.this);
+                        FileManipulation.writeToFile(examBoard,"examboard",Courses.this);
                     }else{
                         FileManipulation.appendToFile(subject,"courses",Courses.this);
                         FileManipulation.appendToFile(website,"websites",Courses.this);
                     }
                     intent.putExtra("subjectListUpdated", true);
                     startActivity(intent);
+                    */
 
                 }
 
@@ -197,6 +203,68 @@ public class Courses extends AppCompatActivity {
 
             mProgressDialog.dismiss();
             //TODO: use http://tika.apache.org/ to extract text from pdf or use http://www.rgagnon.com/javadetails/java-extract-text-from-a-pdf.html
+
+
+
+        }
+    }
+    private class CourseInfo extends AsyncTask<Void, Void, Void> {
+
+        //String[] courses;
+
+        List<String> CourseList = new ArrayList<>();
+        List<String> WebsiteList = new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(Courses.this);
+            mProgressDialog.setTitle("Getting some more information");
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+        }
+
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                // Connect to the web site
+                Document document = Jsoup.connect(website).timeout(15000).get();
+                // Get the html document title
+
+                Elements codesAndReferences = document.select("table[class=tableCodes]").select("tr");
+
+                for (Element e:codesAndReferences){
+                    if(e.child(0).text().equals("Qualification type")){
+                        qualificaton = e.child(1).text();
+                    }
+                }
+
+                Elements keyDates = document.select("ul[class=listEvents]");
+
+                for (Element e:codesAndReferences){
+                        qualificaton = e.child(0).child(0).text();
+                }
+
+
+                if(CourseList.size()==0){
+                    Log.i("None Found","Yes");
+                    CourseList.add("No courses were found. Sorry.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            Intent intent = new Intent(Courses.this, Home.class);
+
+
+            mProgressDialog.dismiss();
 
 
 

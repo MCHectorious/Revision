@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_launcher_24dp"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyTheme">
         <activity
             android:name=".Home"
             android:label="@string/app_name"
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Launcher">
-            android:theme="@style/AppTheme"
+            android:theme="@style/MyTheme"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,9 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Courses"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/MyTheme"/>
         <activity android:name=".ExamBoards"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/MyTheme"></activity>
     </application>
 
 </manifest>

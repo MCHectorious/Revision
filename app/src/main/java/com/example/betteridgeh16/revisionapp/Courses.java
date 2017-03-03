@@ -26,8 +26,9 @@ import java.util.List;
 
 public class Courses extends AppCompatActivity {
     ProgressDialog mProgressDialog;
-    String subject,website,examBoard,qualificaton,importantDate;
+    String subject,website,examBoard,qualification, importantDate;
     String subjectWebsite;
+    Integer timeoutlength = 50000; //TODO:Base this number on connection speed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class Courses extends AppCompatActivity {
 
 
     }
-    private class Subject extends AsyncTask<Void, Void, Void> {
+    private class Subject extends AsyncTask<Void, Void, Void> { //TODO://See about having just one async task with different parameters
 
         //String[] courses;
 
@@ -65,7 +66,7 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect("http://www.aqa.org.uk/subjects").timeout(10000).get();
+                Document document = Jsoup.connect("http://www.aqa.org.uk/subjects").timeout(timeoutlength).get();
                 // Get the html document title
                 elements = document.select("a[href]");
 
@@ -117,7 +118,7 @@ public class Courses extends AppCompatActivity {
 
         }
     }
-    private class ExactSubject extends AsyncTask<Void, Void, Void> {
+    private class ExactSubject extends AsyncTask<Void, Void, Void> {//TODO:Implement caching
 
         //String[] courses;
 
@@ -143,7 +144,7 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect(subjectWebsite).timeout(15000).get();
+                Document document = Jsoup.connect(subjectWebsite).timeout(timeoutlength).get();
                 // Get the html document title
 
                 Elements elementsFromFormat1 = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
@@ -172,9 +173,7 @@ public class Courses extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                    Intent intent = new Intent(Courses.this, Home.class);
-                    int itemPosition = position;
-                    //intent.putExtra("Course", );
+
                     //startActivity(intent);
                     Snackbar.make(view,CourseList.toArray(new String[0])[position],Snackbar.LENGTH_LONG)
                             .setAction("Action",null).show();
@@ -183,6 +182,7 @@ public class Courses extends AppCompatActivity {
                     website = WebsiteList.toArray(new String[0])[position];
                     examBoard = "AQA";
 
+                    Log.i("Testing","Did get this far");
                     (new CourseInfo()).execute();
 
                     /*if(FileManipulation.fileToString("courses",Courses.this).equals("")){
@@ -218,7 +218,7 @@ public class Courses extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(Courses.this);
-            mProgressDialog.setTitle("Getting some more information");
+            mProgressDialog.setTitle("Information Additional information");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -230,28 +230,32 @@ public class Courses extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 // Connect to the web site
-                Document document = Jsoup.connect(website).timeout(15000).get();
+                Document document = Jsoup.connect(website).timeout(timeoutlength).get();
                 // Get the html document title
 
                 Elements codesAndReferences = document.select("table[class=tableCodes]").select("tr");
 
                 for (Element e:codesAndReferences){
                     if(e.child(0).text().equals("Qualification type")){
-                        qualificaton = e.child(1).text();
+                        qualification  = (e.child(1).text()==null)? "Error":e.child(1).text();
                     }
                 }
 
+
+
+
                 Elements keyDates = document.select("ul[class=listEvents]");
 
-                for (Element e:codesAndReferences){
-                        qualificaton = e.child(0).child(0).text();
+                for (Element e:keyDates){
+                    importantDate  = (e.child(0).child(0).text()==null)? "Error":e.child(0).child(0).text();
+                    //importantDate = e.child(0).child(0).text();
                 }
 
 
-                if(CourseList.size()==0){
-                    Log.i("None Found","Yes");
-                    CourseList.add("No courses were found. Sorry.");
-                }
+                //if(CourseList.size()==0){
+                 //   Log.i("None Found","Yes");
+                  //  CourseList.add("No courses were found. Sorry.");
+                //}
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -262,8 +266,27 @@ public class Courses extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             Intent intent = new Intent(Courses.this, Home.class);
+            Log.i("course",subject);
+            Log.i("website",website);
+            Log.i("examBoard",examBoard);
+            Log.i("qualification",qualification );
+            Log.i("important date",importantDate);
 
+            if(FileManipulation.fileToString("courses",Courses.this).equals("")){
+                FileManipulation.writeToFile(subject,"courses",Courses.this);
+                FileManipulation.writeToFile(website,"websites",Courses.this);
+                FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
+                FileManipulation.writeToFile(qualification,"qualifications",Courses.this);
+                FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
+            }else{
+                FileManipulation.appendToFile(subject,"courses",Courses.this);
+                FileManipulation.appendToFile(website,"websites",Courses.this);
+                FileManipulation.appendToFile(examBoard,"examboards",Courses.this);
+                FileManipulation.appendToFile(qualification ,"qualifications",Courses.this);
+                FileManipulation.appendToFile(importantDate,"importantdates",Courses.this);
+            }
 
+            startActivity(intent);
             mProgressDialog.dismiss();
 
 

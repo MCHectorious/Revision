@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class Home extends AppCompatActivity {
 
@@ -56,12 +58,23 @@ public class Home extends AppCompatActivity {
             alertDialog.show();
         }else{
             //ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.fileToStringList("courses",Home.this));
-            Subject subjectData[] = new Subject[]{
-                    new Subject(R.drawable.add_white,"Biology","OCR","A Level","1st May"),
-                    new Subject(R.drawable.ic_launcher_24dp,"Accounting","AQA","GCSE","12th June"),
-                    new Subject(R.drawable.add_white,"Physics","MEI","A Level","25th June")
-            };
-            SubjectAdapter adapter = new SubjectAdapter(Home.this,R.layout.subject_list_item,subjectData);
+            ArrayList<Subject> subjectData = new ArrayList<>();
+            String[] subject = FileManipulation.fileToStringList("courses",Home.this).toArray(new String[0]);
+            //String[] website = FileManipulation.fileToStringList("websites",Home.this).toArray(new String[0]);
+            String[] examboard = FileManipulation.fileToStringList("examboards",Home.this).toArray(new String[0]);
+            String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
+            String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
+            for(int i = 1;i<=subject.length;i++){
+                subjectData.add(new Subject(R.drawable.add_white,subject[i],examboard[i],qualification[i],importantDate[i]));
+            }
+
+
+            //Subject subjectData[] = new Subject[]{
+            //        new Subject(R.drawable.add_white,"Biology","OCR","A Level","1st May"),
+            //        new Subject(R.drawable.ic_launcher_24dp,"Accounting","AQA","GCSE","12th June"),
+            //        new Subject(R.drawable.add_white,"Physics","MEI","A Level","25th June")
+            //};
+            SubjectAdapter adapter = new SubjectAdapter(Home.this,R.layout.subject_list_item,subjectData.toArray(new Subject[0]));
             ListView listView = (ListView) findViewById(R.id.HomeList);
             listView.setAdapter(adapter);
 

@@ -82,6 +82,7 @@ public class Courses extends AppCompatActivity {
             return null;
         }
 
+
         @Override
         protected void onPostExecute(Void result) {
             // Set title into TextView
@@ -233,23 +234,28 @@ public class Courses extends AppCompatActivity {
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
                 // Get the html document title
 
-                Elements codesAndReferences = document.select("table[class=tableCodes]").select("tr");
+                /*Elements codesAndReferences = document.select("table[class=tableCodes]").select("tr");
 
                 for (Element e:codesAndReferences){
                     if(e.child(0).text().equals("Qualification type")){
                         qualification  = (e.child(1).text()==null)? "Error":e.child(1).text();
                     }
                 }
+                */
+                Elements menu = document.select("ol[class=menus").select("a[href]");
+                qualification = (menu.isEmpty())? "Error":menu.last().text();
 
 
 
 
-                Elements keyDates = document.select("ul[class=listEvents]");
+                Elements keyDates = document.select("ul[class=listEvents]").select("li").select("span[class=timestamp]");
 
-                for (Element e:keyDates){
-                    importantDate  = (e.child(0).child(0).text()==null)? "Error":e.child(0).child(0).text();
-                    //importantDate = e.child(0).child(0).text();
-                }
+                importantDate = (keyDates.isEmpty())? "Error":keyDates.first().text();
+
+                //for (Element e:keyDates){
+                //    importantDate  = (e.child(0).child(0).text()==null)? "Error":e.child(0).child(0).text();
+                //    importantDate = e.child(0).child(0).text();
+                //}
 
 
                 //if(CourseList.size()==0){

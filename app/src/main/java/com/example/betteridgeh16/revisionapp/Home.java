@@ -39,7 +39,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        //FileManipulation.writeToFile("hi","courses",Home.this);
+        //FileManipulation.writeToFile("","courses",Home.this);
 
         String CoursesString = FileManipulation.fileToString("courses",Home.this);
         Log.i("CoursesString",CoursesString);
@@ -64,7 +64,7 @@ public class Home extends AppCompatActivity {
             String[] examboard = FileManipulation.fileToStringList("examboards",Home.this).toArray(new String[0]);
             String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
             String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
-            for(int i = 1;i<=subject.length;i++){
+            for(int i = 0;i<subject.length;i++){
                 subjectData.add(new Subject(R.drawable.add_white,subject[i],examboard[i],qualification[i],importantDate[i]));
             }
 
@@ -79,6 +79,7 @@ public class Home extends AppCompatActivity {
             listView.setAdapter(adapter);
 
         }
+
 
     }
 

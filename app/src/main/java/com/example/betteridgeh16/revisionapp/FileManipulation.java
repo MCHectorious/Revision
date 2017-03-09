@@ -34,7 +34,9 @@ public class FileManipulation {
     public static void appendToFile(String data,String file, Context context) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file+ ".txt", Context.MODE_PRIVATE));
-            outputStreamWriter.append("\n" + data);
+            //outputStreamWriter.append("\n" + data);
+            Log.i("Important Test", fileToString(file, context));
+            outputStreamWriter.write(fileToString(file,context) + "\r\n" + data);
             outputStreamWriter.close();
         }
         catch (IOException e) {
@@ -85,7 +87,8 @@ public class FileManipulation {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
-                result.add(bufferedReader.readLine());
+                    result.add(bufferedReader.readLine());
+                    Log.i("subject found",(receiveString==null)?"Error":receiveString);
                 }
 
                 inputStream.close();

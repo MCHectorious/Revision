@@ -278,19 +278,19 @@ public class Courses extends AppCompatActivity {
             Log.i("qualification",qualification );
             Log.i("important date",importantDate);
 
-            if(FileManipulation.fileToString("courses",Courses.this).equals("")){
-                FileManipulation.writeToFile(subject,"courses",Courses.this);
-                FileManipulation.writeToFile(website,"websites",Courses.this);
-                FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
-                FileManipulation.writeToFile(qualification,"qualifications",Courses.this);
-                FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
-            }else{
+            //if(FileManipulation.fileToString("courses",Courses.this).equals("")){
+            //    FileManipulation.writeToFile(subject,"courses",Courses.this);
+            //    FileManipulation.writeToFile(website,"websites",Courses.this);
+            //    FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
+            //    FileManipulation.writeToFile(qualification,"qualifications",Courses.this);
+            //    FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
+            //}else{
                 FileManipulation.appendToFile(subject,"courses",Courses.this);
                 FileManipulation.appendToFile(website,"websites",Courses.this);
                 FileManipulation.appendToFile(examBoard,"examboards",Courses.this);
                 FileManipulation.appendToFile(qualification ,"qualifications",Courses.this);
                 FileManipulation.appendToFile(importantDate,"importantdates",Courses.this);
-            }
+            //}
 
             startActivity(intent);
             mProgressDialog.dismiss();

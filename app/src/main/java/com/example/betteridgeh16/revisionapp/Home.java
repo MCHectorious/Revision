@@ -39,6 +39,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
         //FileManipulation.writeToFile("","courses",Home.this);
 
         String CoursesString = FileManipulation.fileToString("courses",Home.this);
@@ -64,10 +65,14 @@ public class Home extends AppCompatActivity {
             String[] examboard = FileManipulation.fileToStringList("examboards",Home.this).toArray(new String[0]);
             String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
             String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
+
+
+            Log.i("subject size", Integer.toString(subject.length));
             for(int i = 0;i<subject.length;i++){
                 subjectData.add(new Subject(R.drawable.add_white,subject[i],examboard[i],qualification[i],importantDate[i]));
-            }
 
+            }
+            subjectData.add(new Subject(R.drawable.add_white,"test","test","test","test"));
 
             //Subject subjectData[] = new Subject[]{
             //        new Subject(R.drawable.add_white,"Biology","OCR","A Level","1st May"),

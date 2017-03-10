@@ -14,7 +14,20 @@ public class Launcher extends AppCompatActivity {
 
         //android.os.Debug.waitForDebugger();
         Log.i("Me","Test");
+        //FileManipulation.clearAll(Launcher.this);
 
+        FileManipulation.writeToFile("A","courses",Launcher.this);
+        FileManipulation.writeToFile("A","websites",Launcher.this);
+        FileManipulation.writeToFile("A","examboards",Launcher.this);
+        FileManipulation.writeToFile("A" ,"qualifications",Launcher.this);
+        FileManipulation.writeToFile("A","importantdates",Launcher.this);
+
+        
+        FileManipulation.appendToFile("B","courses",Launcher.this);
+        FileManipulation.appendToFile("B","websites",Launcher.this);
+        FileManipulation.appendToFile("B","examboards",Launcher.this);
+        FileManipulation.appendToFile("B" ,"qualifications",Launcher.this);
+        FileManipulation.appendToFile("B","importantdates",Launcher.this);
 
         Intent intent = new Intent(Launcher.this, Home.class);
         startActivity(intent);

@@ -60,15 +60,21 @@ public class Home extends AppCompatActivity {
         }else{
             //ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, android.R.layout.simple_list_item_1, android.R.id.text1, FileManipulation.fileToStringList("courses",Home.this));
             ArrayList<Subject> subjectData = new ArrayList<>();
-            String[] subject = FileManipulation.fileToStringList("courses",Home.this).toArray(new String[0]);
+            //String[] subject = FileManipulation.fileToStringList("courses",Home.this).toArray(new String[0]);
             //String[] website = FileManipulation.fileToStringList("websites",Home.this).toArray(new String[0]);
-            String[] examboard = FileManipulation.fileToStringList("examboards",Home.this).toArray(new String[0]);
-            String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
-            String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
+            //String[] examboard = FileManipulation.fileToStringList("examboards",Home.this).toArray(new String[0]);
+            //String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
+            //String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
 
+            String[] subject = FileManipulation.fileToStringArray("courses",Home.this);
+
+            String[] examboard = FileManipulation.fileToStringArray("examboards",Home.this);
+            String[] qualification = FileManipulation.fileToStringArray("qualifications",Home.this);
+            String[] importantDate = FileManipulation.fileToStringArray("importantdates",Home.this);
 
             Log.i("subject size", Integer.toString(subject.length));
             for(int i = 0;i<subject.length;i++){
+                Log.i("test",subject[i]);
                 subjectData.add(new Subject(R.drawable.add_white,subject[i],examboard[i],qualification[i],importantDate[i]));
 
             }

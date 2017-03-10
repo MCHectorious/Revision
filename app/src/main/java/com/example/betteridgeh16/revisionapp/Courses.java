@@ -271,7 +271,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
 
-            Intent intent = new Intent(Courses.this, Home.class);
+
             Log.i("course",subject);
             Log.i("website",website);
             Log.i("examBoard",examBoard);
@@ -285,13 +285,36 @@ public class Courses extends AppCompatActivity {
             //    FileManipulation.writeToFile(qualification,"qualifications",Courses.this);
             //    FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
             //}else{
-                FileManipulation.appendToFile(subject,"courses",Courses.this);
-                FileManipulation.appendToFile(website,"websites",Courses.this);
-                FileManipulation.appendToFile(examBoard,"examboards",Courses.this);
-                FileManipulation.appendToFile(qualification ,"qualifications",Courses.this);
-                FileManipulation.appendToFile(importantDate,"importantdates",Courses.this);
-            //}
 
+
+
+
+
+
+
+            //}
+            Log.i("Courses",FileManipulation.fileToString("courses", Courses.this));
+            Log.i("websites",FileManipulation.fileToString("websites", Courses.this));
+            Log.i("examboards",FileManipulation.fileToString("examboards", Courses.this));
+            Log.i("qualifications",FileManipulation.fileToString("qualifications", Courses.this));
+            Log.i("importantdates",FileManipulation.fileToString("importantdates", Courses.this));
+
+
+            FileManipulation.writeToFile(subject,"courses",Courses.this);
+            FileManipulation.writeToFile(website,"websites",Courses.this);
+            FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
+            FileManipulation.writeToFile(qualification ,"qualifications",Courses.this);
+            FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
+
+
+            Log.i("Courses",FileManipulation.fileToString("courses", Courses.this));
+            Log.i("websites",FileManipulation.fileToString("websites", Courses.this));
+            Log.i("examboards",FileManipulation.fileToString("examboards", Courses.this));
+            Log.i("qualifications",FileManipulation.fileToString("qualifications", Courses.this));
+            Log.i("importantdates",FileManipulation.fileToString("importantdates", Courses.this));
+
+
+            Intent intent = new Intent(Courses.this, Home.class);
             startActivity(intent);
             mProgressDialog.dismiss();
 

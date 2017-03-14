@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,83 @@ import java.util.List;
  * Created by betteridgeh16 on 2/23/2017.
  */
 
+public class FileManipulation{
+    public static void createFile(Context context, String fileName){
+        File file = new File(context.getFilesDir(), fileName);
+    }
+
+    public  static void deleteFile(Context context, String fileName){
+        context.deleteFile(fileName);
+    }
+
+    public static void writeToFile(Context context, String fileName, String data){
+        try{
+            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void appendToFile(Context context, String fileName, String data){
+        try{
+            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_APPEND);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 public class FileManipulation {
     //public static void createFile(){
     //    File file = new File("courses")
@@ -35,7 +113,7 @@ public class FileManipulation {
     public static void appendToFile(String data,String file, Context context) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file+ ".txt", Context.MODE_APPEND));
-            outputStreamWriter.append("\n\r"+ data);
+            outputStreamWriter.append("\t"+ data);
             Log.i("!!!!!!!!!!!!!!!!!", fileToString(file, context));
             //outputStreamWriter.write(fileToString(file,context) + "\r\n" + data);
             outputStreamWriter.close();
@@ -67,7 +145,7 @@ public class FileManipulation {
             }
         }
         catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e(" ", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
@@ -109,6 +187,8 @@ public class FileManipulation {
         List<String> result = new ArrayList<>();
         String line;
         String[] data;
+        List<String> lines = new ArrayList<String>();
+
 
         try {
             /*InputStream inputStream = context.openFileInput(file + ".txt");
@@ -126,18 +206,18 @@ public class FileManipulation {
 
                 inputStream.close();
 
-            }*/
+            }
             BufferedReader abc = new BufferedReader(new FileReader(file));
-            List<String> lines = new ArrayList<String>();
+
 
             while(( line = abc.readLine()) != null) {
                 lines.add(line);
-                System.out.println(line);
+                Log.i("line: ",line);
             }
             abc.close();
 
 // If you want to convert to a String[]
-            data = lines.toArray(new String[]{});
+
         }
         catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
@@ -151,7 +231,7 @@ public class FileManipulation {
         //    resultArray[i] = result.get(i);
         //}
 
-
+        data = lines.toArray(new String[]{});
         return data;
     }
 
@@ -163,3 +243,4 @@ public class FileManipulation {
         FileManipulation.writeToFile("","importantdates",context);
     }
 }
+*/

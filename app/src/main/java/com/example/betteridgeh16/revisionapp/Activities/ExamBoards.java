@@ -1,4 +1,4 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.betteridgeh16.revisionapp.R;
 
 public class ExamBoards extends AppCompatActivity {
 

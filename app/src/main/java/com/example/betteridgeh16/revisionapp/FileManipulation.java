@@ -1,6 +1,7 @@
 package com.example.betteridgeh16.revisionapp;
 
 import android.content.Context;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -47,8 +48,66 @@ public class FileManipulation{
             e.printStackTrace();
         }
     }
+    public static String[] fileToArray(Context context, String filename){
+        String line;
+        ArrayList<String> result = new ArrayList<>();
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
 
 
+            while ((line = bufferedReader.readLine()) != null){
+                result.add(line);
+            }
+
+            bufferedReader.close();
+
+            }catch (IOException e){
+            Log.e("Error", e.getMessage());
+
+        }
+
+        return result.toArray(new String[0]);
+    }
+
+    public static String fileToString(Context context, String file){
+
+        String         line = null;
+        StringBuilder  stringBuilder = new StringBuilder();
+        String         ls = System.getProperty("line.separator");
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader (file));
+            while((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+            reader.close();
+
+        }catch(IOException e){
+            Log.e("Error",e.getMessage());
+
+        }
+        return stringBuilder.toString();
+    }
+
+   /* public static Boolean isEmpty(Context context, String filename){
+        Boolean result;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+
+
+            bufferedReader.readLine()) != null){
+
+            }
+
+            bufferedReader.close();
+
+        }catch (IOException e){
+            Log.e("Error", e.getMessage());
+
+        }
+    }*/
 
 }
 

@@ -1,10 +1,9 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.betteridgeh16.revisionapp.FileManipulation;
+import com.example.betteridgeh16.revisionapp.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,7 +22,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Courses extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class Courses extends AppCompatActivity {
 
 
     }
-    private class Subject extends AsyncTask<Void, Void, Void> { //TODO://See about having just one async task with different parameters
+    private class Subject extends AsyncTask<Void, Void, Void> { //TODO:See about having just one async task with different parameters
 
         //String[] courses;
 
@@ -293,25 +293,26 @@ public class Courses extends AppCompatActivity {
 
 
             //}
-            Log.i("Courses",FileManipulation.fileToString("courses", Courses.this));
-            Log.i("websites",FileManipulation.fileToString("websites", Courses.this));
-            Log.i("examboards",FileManipulation.fileToString("examboards", Courses.this));
-            Log.i("qualifications",FileManipulation.fileToString("qualifications", Courses.this));
-            Log.i("importantdates",FileManipulation.fileToString("importantdates", Courses.this));
+            Log.i("Courses", FileManipulation.fileToString(Courses.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(Courses.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(Courses.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(Courses.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
 
 
-            FileManipulation.writeToFile(subject,"courses",Courses.this);
-            FileManipulation.writeToFile(website,"websites",Courses.this);
-            FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
-            FileManipulation.writeToFile(qualification ,"qualifications",Courses.this);
-            FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
+            FileManipulation.writeToFile(Courses.this,"courses",subject);
+            FileManipulation.writeToFile(Courses.this,"websites",website);
+            FileManipulation.writeToFile(Courses.this,"examboards",examBoard);
+            FileManipulation.writeToFile( Courses.this,"qualifications",qualification);
+            FileManipulation.writeToFile(Courses.this,"importantdates",importantDate);
 
 
-            Log.i("Courses",FileManipulation.fileToString("courses", Courses.this));
-            Log.i("websites",FileManipulation.fileToString("websites", Courses.this));
-            Log.i("examboards",FileManipulation.fileToString("examboards", Courses.this));
-            Log.i("qualifications",FileManipulation.fileToString("qualifications", Courses.this));
-            Log.i("importantdates",FileManipulation.fileToString("importantdates", Courses.this));
+            Log.i("Courses",FileManipulation.fileToString(Courses.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(Courses.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(Courses.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(Courses.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
+
 
 
             Intent intent = new Intent(Courses.this, Home.class);

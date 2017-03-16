@@ -1,11 +1,10 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,9 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.betteridgeh16.revisionapp.FileManipulation;
+import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Subject;
+import com.example.betteridgeh16.revisionapp.SubjectAdapter;
 
 import java.util.ArrayList;
 
@@ -42,7 +45,7 @@ public class Home extends AppCompatActivity {
 
         //FileManipulation.writeToFile("","courses",Home.this);
 
-        String CoursesString = FileManipulation.fileToString("courses",Home.this);
+        String CoursesString = FileManipulation.fileToString(Home.this,"courses");
         Log.i("CoursesString",CoursesString);
         if(CoursesString.equals("")) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -66,9 +69,9 @@ public class Home extends AppCompatActivity {
             //String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
             //String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
 
-            String[] subject = FileManipulation.fileToStringArray("courses",Home.this);
+            String[] subject = FileManipulation.fileToStringArray(Home.this,"courses");
 
-            String[] examboard = FileManipulation.fileToStringArray("examboards",Home.this);
+            String[] examboard = FileManipulation.fileToStringArray(Home.this,"examboards");
             String[] qualification = FileManipulation.fileToStringArray("qualifications",Home.this);
             String[] importantDate = FileManipulation.fileToStringArray("importantdates",Home.this);
 

@@ -9,14 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name=".Home"
+            android:name=".Activities.Home"
             android:label="@string/app_name"
             android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Launcher">
+        <activity android:name=".Activities.Launcher">
             android:theme="@style/MyTheme"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Courses"
+        <activity android:name=".Activities.Courses"
             android:theme="@style/MyTheme"/>
-        <activity android:name=".ExamBoards"
+        <activity android:name=".Activities.ExamBoards"
             android:theme="@style/MyTheme"></activity>
     </application>
 

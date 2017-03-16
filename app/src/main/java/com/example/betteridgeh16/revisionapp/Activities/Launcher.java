@@ -1,9 +1,11 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.example.betteridgeh16.revisionapp.FileManipulation;
+import com.example.betteridgeh16.revisionapp.R;
 
 public class Launcher extends AppCompatActivity {
 

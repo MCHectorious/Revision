@@ -1,4 +1,4 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.content.Context;
 import android.provider.MediaStore;
@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -22,16 +23,16 @@ import java.util.List;
 
 public class FileManipulation{
     public static void createFile(Context context, String fileName){
-        File file = new File(context.getFilesDir(), fileName);
+        File file = new File(context.getFilesDir(), fileName + ".txt");
     }
 
     public  static void deleteFile(Context context, String fileName){
-        context.deleteFile(fileName);
+        context.deleteFile(fileName + ".txt");
     }
 
     public static void writeToFile(Context context, String fileName, String data){
         try{
-            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            FileOutputStream outputStream = context.openFileOutput(fileName+ ".txt", Context.MODE_APPEND);
             outputStream.write(data.getBytes());
             outputStream.close();
         }catch (Exception e){
@@ -41,19 +42,19 @@ public class FileManipulation{
 
     public static void appendToFile(Context context, String fileName, String data){
         try{
-            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_APPEND);
+            FileOutputStream outputStream = context.openFileOutput(fileName+ ".txt", Context.MODE_APPEND);
             outputStream.write(data.getBytes());
             outputStream.close();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public static String[] fileToArray(Context context, String filename){
+    public static String[] fileToStringArray(Context context, String filename){
         String line;
         ArrayList<String> result = new ArrayList<>();
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename+ ".txt"));
 
 
             while ((line = bufferedReader.readLine()) != null){
@@ -63,32 +64,36 @@ public class FileManipulation{
             bufferedReader.close();
 
             }catch (IOException e){
-            Log.e("Error", e.getMessage());
+            Log.e("IOError", e.getMessage());
 
         }
 
         return result.toArray(new String[0]);
     }
 
-    public static String fileToString(Context context, String file){
+    public static String fileToString(Context context, String fileName){
 
-        String         line = null;
-        StringBuilder  stringBuilder = new StringBuilder();
-        String         ls = System.getProperty("line.separator");
+        String s="";
+        try{
+            FileInputStream fileIn= context.openFileInput(fileName + ".txt");
+            InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader (file));
-            while((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(ls);
+            char[] inputBuffer= new char[100];
+
+            int charRead;
+
+            while ((charRead=InputRead.read(inputBuffer))>0) {
+                // char to string conversion
+                String readstring=String.copyValueOf(inputBuffer,0,charRead);
+                s +=readstring;
             }
-            reader.close();
-
+            InputRead.close();
         }catch(IOException e){
-            Log.e("Error",e.getMessage());
-
+            Log.i("IOError",e.getMessage());
         }
-        return stringBuilder.toString();
+
+
+        return s; //TODO: http://www.journaldev.com/9383/android-internal-storage-example-tutorial
     }
 
    /* public static Boolean isEmpty(Context context, String filename){

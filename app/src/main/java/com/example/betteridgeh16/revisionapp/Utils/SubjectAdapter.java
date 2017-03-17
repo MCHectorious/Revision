@@ -1,4 +1,4 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Utils.Subject;
 
 /**
  * Created by betteridgeh16 on 2/28/2017.

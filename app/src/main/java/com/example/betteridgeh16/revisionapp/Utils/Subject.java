@@ -1,4 +1,4 @@
-package com.example.betteridgeh16.revisionapp;
+package com.example.betteridgeh16.revisionapp.Utils;
 
 /**
  * Created by betteridgeh16 on 2/28/2017.

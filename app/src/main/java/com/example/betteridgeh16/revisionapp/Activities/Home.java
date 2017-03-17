@@ -15,10 +15,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.betteridgeh16.revisionapp.FileManipulation;
+import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
-import com.example.betteridgeh16.revisionapp.Subject;
-import com.example.betteridgeh16.revisionapp.SubjectAdapter;
+import com.example.betteridgeh16.revisionapp.Utils.Subject;
+import com.example.betteridgeh16.revisionapp.Utils.SubjectAdapter;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity {
         if(CoursesString.equals("")) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             TextView textView = new TextView(this);
-            textView.setText("You currently have no courses. To add courses and continue click OK");
+            textView.setText("You currently have no courses."+ System.getProperty("line.separator") + "To add courses and continue click OKAY");
             textView.setTextColor(Color.WHITE);
             alertDialogBuilder.setView(textView);
             alertDialogBuilder.setCancelable(false).setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
@@ -72,8 +72,8 @@ public class Home extends AppCompatActivity {
             String[] subject = FileManipulation.fileToStringArray(Home.this,"courses");
 
             String[] examboard = FileManipulation.fileToStringArray(Home.this,"examboards");
-            String[] qualification = FileManipulation.fileToStringArray("qualifications",Home.this);
-            String[] importantDate = FileManipulation.fileToStringArray("importantdates",Home.this);
+            String[] qualification = FileManipulation.fileToStringArray(Home.this,"qualifications");
+            String[] importantDate = FileManipulation.fileToStringArray(Home.this, "importantdates");
 
             Log.i("subject size", Integer.toString(subject.length));
             for(int i = 0;i<subject.length;i++){

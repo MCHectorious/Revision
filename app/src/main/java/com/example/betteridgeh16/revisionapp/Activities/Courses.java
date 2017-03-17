@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.betteridgeh16.revisionapp.FileManipulation;
+import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
 
 import org.jsoup.Jsoup;
@@ -86,7 +86,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             // Set title into TextView
-            Log.i("hi",Integer.toString(CourseList.size()));
+            Log.i("Number of subjects",Integer.toString(CourseList.size()));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
@@ -183,7 +183,7 @@ public class Courses extends AppCompatActivity {
                     website = WebsiteList.toArray(new String[0])[position];
                     examBoard = "AQA";
 
-                    Log.i("Testing","Did get this far");
+                    //Log.i("Testing","Did get this far");
                     (new CourseInfo()).execute();
 
                     /*if(FileManipulation.fileToString("courses",Courses.this).equals("")){

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -69,6 +70,8 @@ public class Home extends AppCompatActivity {
             //String[] qualification = FileManipulation.fileToStringList("qualifications",Home.this).toArray(new String[0]);
             //String[] importantDate = FileManipulation.fileToStringList("importantdates",Home.this).toArray(new String[0]);
 
+            Log.i(" ", FileManipulation.fileToString(Home.this, "courses"));
+
             String[] subject = FileManipulation.fileToStringArray(Home.this,"courses");
 
             String[] examboard = FileManipulation.fileToStringArray(Home.this,"examboards");
@@ -78,19 +81,32 @@ public class Home extends AppCompatActivity {
             Log.i("subject size", Integer.toString(subject.length));
             for(int i = 0;i<subject.length;i++){
                 Log.i("test",subject[i]);
-                subjectData.add(new Subject(R.drawable.add_white,subject[i],examboard[i],qualification[i],importantDate[i]));
+                subjectData.add(new Subject(R.drawable.crescent,subject[i],examboard[i],qualification[i],importantDate[i]));
 
             }
-            subjectData.add(new Subject(R.drawable.add_white,"test","test","test","test"));
+            //subjectData.add(new Subject(R.drawable.add_white,"test","test","test","test"));
 
             //Subject subjectData[] = new Subject[]{
             //        new Subject(R.drawable.add_white,"Biology","OCR","A Level","1st May"),
-            //        new Subject(R.drawable.ic_launcher_24dp,"Accounting","AQA","GCSE","12th June"),
+            //        new Subject(R.drawable.launcher_icon,"Accounting","AQA","GCSE","12th June"),
             //        new Subject(R.drawable.add_white,"Physics","MEI","A Level","25th June")
             //};
             SubjectAdapter adapter = new SubjectAdapter(Home.this,R.layout.subject_list_item,subjectData.toArray(new Subject[0]));
             ListView listView = (ListView) findViewById(R.id.HomeList);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(Home.this, Course.class);
+                    //int itemPosition = position;
+                    //intent.putExtra("ExamBoard", examBoards[position]);
+                    startActivity(intent);
+
+
+                }
+
+            });
 
         }
 

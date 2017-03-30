@@ -13,7 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +34,10 @@ public class FileManipulation{
 
     public static void writeToFile(Context context, String fileName, String data){
         try{
-            FileOutputStream outputStream = context.openFileOutput(fileName+ ".txt", Context.MODE_APPEND);
-            outputStream.write(data.getBytes());
+            OutputStream outputStream =context.openFileOutput(fileName+ ".txt", Context.MODE_APPEND);
+            PrintWriter writer = new PrintWriter(outputStream);
+            //FileOutputStream outputStream =
+            writer.println(data);
             outputStream.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -43,7 +47,8 @@ public class FileManipulation{
     public static void appendToFile(Context context, String fileName, String data){
         try{
             FileOutputStream outputStream = context.openFileOutput(fileName+ ".txt", Context.MODE_APPEND);
-            outputStream.write(data.getBytes());
+            String endOfLine = System.getProperty("line.separator");
+            outputStream.write((data+endOfLine).getBytes());
             outputStream.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -54,7 +59,10 @@ public class FileManipulation{
         ArrayList<String> result = new ArrayList<>();
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename+ ".txt"));
+
+            FileInputStream fileIn = context.openFileInput(filename + ".txt");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileIn));
+                   // new BufferedReader(new FileReader(filename+ ".txt"));
 
 
             while ((line = bufferedReader.readLine()) != null){
@@ -67,7 +75,7 @@ public class FileManipulation{
             Log.e("IOError", e.getMessage());
 
         }
-
+        Log.i("Array", result.toString());
         return result.toArray(new String[0]);
     }
 
@@ -95,6 +103,8 @@ public class FileManipulation{
 
         return s; //TODO: http://www.journaldev.com/9383/android-internal-storage-example-tutorial
     }
+
+
 
    /* public static Boolean isEmpty(Context context, String filename){
         Boolean result;

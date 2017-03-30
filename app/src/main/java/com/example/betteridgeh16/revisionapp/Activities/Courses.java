@@ -243,14 +243,14 @@ public class Courses extends AppCompatActivity {
                 }
                 */
                 Elements menu = document.select("ol[class=menus").select("a[href]");
-                qualification = (menu.isEmpty())? "Error":menu.last().text();
+                qualification = (menu.isEmpty())? " ":menu.last().text();
 
 
 
 
                 Elements keyDates = document.select("ul[class=listEvents]").select("li").select("span[class=timestamp]");
 
-                importantDate = (keyDates.isEmpty())? "Error":keyDates.first().text();
+                importantDate = (keyDates.isEmpty())? " ":keyDates.first().text();
 
                 //for (Element e:keyDates){
                 //    importantDate  = (e.child(0).child(0).text()==null)? "Error":e.child(0).child(0).text();
@@ -300,11 +300,11 @@ public class Courses extends AppCompatActivity {
             Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
 
 
-            FileManipulation.writeToFile(Courses.this,"courses",subject);
-            FileManipulation.writeToFile(Courses.this,"websites",website);
-            FileManipulation.writeToFile(Courses.this,"examboards",examBoard);
-            FileManipulation.writeToFile( Courses.this,"qualifications",qualification);
-            FileManipulation.writeToFile(Courses.this,"importantdates",importantDate);
+            FileManipulation.appendToFile(Courses.this,"courses",subject);
+            FileManipulation.appendToFile(Courses.this,"websites",website);
+            FileManipulation.appendToFile(Courses.this,"examboards",examBoard);
+            FileManipulation.appendToFile( Courses.this,"qualifications",qualification);
+            FileManipulation.appendToFile(Courses.this,"importantdates",importantDate);
 
 
             Log.i("Courses",FileManipulation.fileToString(Courses.this,"courses"));

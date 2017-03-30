@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:srcCompat="@drawable/ic_launcher_24dp"
+        app:srcCompat="@drawable/crescent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:id="@+id/subjectIcon"
@@ -27,7 +27,7 @@
         android:id="@+id/subjectTextView" />
 
     <TextView
-        android:text="TextView"
+        android:text="Examboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/subjectIcon"
@@ -37,16 +37,17 @@
         android:id="@+id/examBoardTextView" />
 
     <TextView
-        android:text="TextView"
+        android:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/subjectIcon"
         android:layout_below="@id/subjectTextView"
+        android:textStyle="italic"
         android:id="@+id/importantDateTextView" />
 
     <TextView
-        android:text="TextView"
+        android:text="Qualification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/qualificationTypeTextView"

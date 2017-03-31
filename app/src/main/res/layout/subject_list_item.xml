@@ -24,6 +24,7 @@
         android:layout_toEndOf="@+id/subjectIcon"
         android:layout_alignParentRight="true"
         android:padding="2dp"
+        android:ellipsize="end"
         android:id="@+id/subjectTextView" />
 
     <TextView

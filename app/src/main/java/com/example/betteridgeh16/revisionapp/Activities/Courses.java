@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Utils.StringManipulation;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,6 +30,7 @@ public class Courses extends AppCompatActivity {
     String subject,website,examBoard,qualification, importantDate;
     String subjectWebsite;
     Integer timeoutlength = 50000; //TODO:Base this number on connection speed
+    String topic = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +102,12 @@ public class Courses extends AppCompatActivity {
                     //startActivity(intent);
                     Snackbar.make(view,CourseList.toArray(new String[0])[position],Snackbar.LENGTH_LONG)
                             .setAction("Action",null).show();
+                    topic = CourseList.toArray(new String[0])[position];
 
                     for (Element element:elements){
                         if(element.text().equals(CourseList.toArray(new String[0])[position])){
                             subjectWebsite = element.attr("href");
+
                         }
                     }
 
@@ -129,7 +133,7 @@ public class Courses extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(Courses.this);
-            mProgressDialog.setTitle("Getting a list of qualifications");
+            mProgressDialog.setTitle("Getting a List of Qualifications Relating to " + topic);
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -219,7 +223,7 @@ public class Courses extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(Courses.this);
-            mProgressDialog.setTitle("Information Additional information");
+            mProgressDialog.setTitle("Gathering Additional Information");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -300,7 +304,7 @@ public class Courses extends AppCompatActivity {
             Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
 
 
-            FileManipulation.appendToFile(Courses.this,"courses",subject);
+            FileManipulation.appendToFile(Courses.this,"courses", StringManipulation.trimStringToCourse(subject));
             FileManipulation.appendToFile(Courses.this,"websites",website);
             FileManipulation.appendToFile(Courses.this,"examboards",examBoard);
             FileManipulation.appendToFile( Courses.this,"qualifications",qualification);

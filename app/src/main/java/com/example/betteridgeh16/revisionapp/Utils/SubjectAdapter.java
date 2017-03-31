@@ -55,7 +55,7 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
         }
 
         Subject subject = data[position];
-        holder.iconView.setImageResource(subject.icon);
+        holder.iconView.setImageBitmap(subject.icon);
         holder.subjectView.setText(subject.subject);
         holder.examboardView.setText(subject.examboard);
         holder.dateView.setText(subject.date);

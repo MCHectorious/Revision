@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Utils.GraphicsManipulation;
 
 public class Launcher extends AppCompatActivity {
 
@@ -27,6 +28,12 @@ public class Launcher extends AppCompatActivity {
         //FileManipulation.deleteFile(Launcher.this, "examboards");
         //FileManipulation.deleteFile(Launcher.this, "qualifications");
         //FileManipulation.deleteFile(Launcher.this, "importantdates");
+
+        //GraphicsManipulation.deleteImage(Launcher.this, "A");
+        //GraphicsManipulation.deleteImage(Launcher.this, "C");
+        //GraphicsManipulation.deleteImage(Launcher.this, "F");
+
+
 
         //Log.i("Objective", "Complete");
         //android.os.Debug.waitForDebugger();

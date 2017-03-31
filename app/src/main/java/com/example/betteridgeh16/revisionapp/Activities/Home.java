@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Utils.GraphicsManipulation;
 import com.example.betteridgeh16.revisionapp.Utils.Subject;
 import com.example.betteridgeh16.revisionapp.Utils.SubjectAdapter;
 
@@ -81,7 +82,7 @@ public class Home extends AppCompatActivity {
             Log.i("subject size", Integer.toString(subject.length));
             for(int i = 0;i<subject.length;i++){
                 Log.i("test",subject[i]);
-                subjectData.add(new Subject(R.drawable.crescent,subject[i],examboard[i],qualification[i],importantDate[i]));
+                subjectData.add(new Subject(GraphicsManipulation.getIcon(Home.this, subject[i]),subject[i],examboard[i],qualification[i],importantDate[i]));
 
             }
             //subjectData.add(new Subject(R.drawable.add_white,"test","test","test","test"));

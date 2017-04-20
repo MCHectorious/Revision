@@ -7,14 +7,15 @@ import android.graphics.Bitmap;
  */
 
 public class Subject {
-    public Bitmap icon;
+    public Integer icon;
     public String subject,date,examboard,qualification;
 
     public Subject() {
         super();
     }
 
-    public Subject(Bitmap icon, String subject, String examboard, String qualification,  String date ) {
+    //public Subject(Bitmap icon, String subject, String examboard, String qualification,  String date ) {
+    public Subject(Integer icon, String subject, String examboard, String qualification,  String date ) {
         super();
         this.icon = icon;
         this.qualification = qualification;

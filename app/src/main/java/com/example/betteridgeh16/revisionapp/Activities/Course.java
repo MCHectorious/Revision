@@ -8,13 +8,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 public class Course extends AppCompatActivity {
+    Integer timeoutlength = 50000; //TODO:Base this number on connection speed
+    Integer subjectIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +30,7 @@ public class Course extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Integer subjectIndex = getIntent().getIntExtra("Subject Index", 1);
+        subjectIndex = getIntent().getIntExtra("Subject Index", 1);
         setTitle(FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex]);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -43,7 +50,7 @@ public class Course extends AppCompatActivity {
 
             @Override
             public void onClick(View view){
-
+                (new DownloadSpecification()).execute();
             }
         });
 
@@ -67,7 +74,17 @@ public class Course extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params){
+            try {
+                String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex];
+                Document document = Jsoup.connect(website).timeout(timeoutlength).get();
 
+                Element element = document.select("a[class=bttn downloadBttn bttnG no-icon").first();
+
+                String PDFwebsite = element.attr("href");
+                Log.i("PDF website", PDFwebsite);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return null;
         }
 

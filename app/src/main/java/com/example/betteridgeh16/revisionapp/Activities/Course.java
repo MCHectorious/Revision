@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
+import com.example.betteridgeh16.revisionapp.Utils.PDFextraction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +23,7 @@ import org.jsoup.nodes.Element;
 public class Course extends AppCompatActivity {
     Integer timeoutlength = 50000; //TODO:Base this number on connection speed
     Integer subjectIndex;
+    String subject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class Course extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         subjectIndex = getIntent().getIntExtra("Subject Index", 1);
-        setTitle(FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex]);
+        subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
+        setTitle(subject);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.launcher_icon);
@@ -82,6 +85,8 @@ public class Course extends AppCompatActivity {
 
                 String PDFwebsite = element.attr("href");
                 Log.i("PDF website", PDFwebsite);
+                PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
+                PDFextraction.extractTextFromDownloadedPDF(subject,Course.this);
             }catch (Exception e){
                 e.printStackTrace();
             }

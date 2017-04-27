@@ -1,6 +1,7 @@
 package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.itextpdf.text.pdf.PdfReader;
@@ -55,13 +56,14 @@ public class PDFextraction {
             String parsedText="";
             //String filePath = context.getFilesDir()+"/"+subject+"Specification.pdf";
             String filePath = subject+"Specification.pdf";
-            File file = new File(filePath);
+            String absoluteFilePath = context.getFilesDir().getAbsolutePath()+"/"+filePath;
+            File file = new File(context.getFilesDir(),filePath);
             if(!file.exists()){
                 Log.i("File", "does not exist");
             }else{
                 Log.i("File", "does exist");
             }
-            PdfReader reader = new PdfReader(filePath);
+            PdfReader reader = new PdfReader(absoluteFilePath);
             int n = reader.getNumberOfPages();
             for (int i = 0; i <n ; i++) {
                 parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n";
@@ -77,7 +79,7 @@ public class PDFextraction {
         try {
             String parsedText="";
 
-
+            Log.i("Website", url);
             PdfReader reader = new PdfReader(new URL(url));
             int n = reader.getNumberOfPages();
             for (int i = 0; i <n ; i++) {

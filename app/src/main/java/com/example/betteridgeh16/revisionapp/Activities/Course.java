@@ -8,9 +8,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
@@ -48,7 +50,7 @@ public class Course extends AppCompatActivity {
             }
         });
 
-        Button downloadSpecButton = (Button) findViewById(R.id.downloadSpecificationButton);
+        Button downloadSpecButton = (Button) findViewById(R.id.downloadSpecificationButton); //TODO: Show user the download size
         downloadSpecButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -60,9 +62,9 @@ public class Course extends AppCompatActivity {
 
     }
 
-    private class DownloadSpecification extends AsyncTask<Void,Void,Void>{ //TODO: Need to complete this
+    private class DownloadSpecification extends AsyncTask<Void,Void,Void>{
         ProgressDialog mProgressDialog;
-
+        String extractedText;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -87,8 +89,7 @@ public class Course extends AppCompatActivity {
                 Log.i("PDF website", PDFwebsite);
                 PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
                 //PDFextraction.extractTextFromDownloadedPDF(subject,Course.this);
-
-                PDFextraction.extractTextFromOnlinePDF(PDFwebsite, Course.this);
+                PDFextraction.extractTextFromPDF(subject, Course.this);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -98,6 +99,9 @@ public class Course extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             mProgressDialog.dismiss();
+            /*TextView textView = (TextView) findViewById(R.id.extractPDFtext);
+            textView.setMovementMethod(new ScrollingMovementMethod());
+            textView.setText(extractedText);*/
         }
     }
 }

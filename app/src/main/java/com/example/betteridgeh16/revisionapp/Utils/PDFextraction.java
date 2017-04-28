@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+//import com.itextpdf.text.pdf.PdfReader;
+//import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+
+import com.tom_roush.pdfbox.pdmodel.PDDocument;
+import com.tom_roush.pdfbox.text.PDFTextStripper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +23,6 @@ import java.net.URL;
  * Created by betteridgeh16 on 4/20/2017.
  */
 public class PDFextraction {
-
     public static void downloadPDF(String url, String subject, Context context){
         try{
             URL u = new URL(url);
@@ -50,8 +52,51 @@ public class PDFextraction {
         }
 
     }
+    public static void extractTextFromPDF(String subject, Context context){
+        if (!new File(subject+"Specification.txt").exists()){
+            //if(!new File(context.getFilesDir(),subject+"Specification.pdf").exists()){downloadPDF();
+            String parsedText = null;
+            PDDocument document = null;
+            File file = new File(context.getFilesDir(),subject+"Specification.pdf");
+            if(!file.exists()){
+                Log.i("File", "does not exist");
+            }else{
+                Log.i("File", "does exist");
+            }
+            try {
+                document = PDDocument.load(file);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
 
-    public static void extractTextFromDownloadedPDF(String subject, Context context){
+            try {
+                PDFTextStripper pdfStripper = new PDFTextStripper();
+                pdfStripper.setStartPage(0);
+                //pdfStripper.setEndPage(10);
+                parsedText = pdfStripper.getText(document);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (document != null) document.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            FileManipulation.createFile(context, subject+"Specification.txt");
+            FileManipulation.writeToFile(context, subject+"Specification.txt",parsedText);
+        }
+
+    }
+
+
+}
+
+
+
+    /*public static void extractTextFromDownloadedPDF(String subject, Context context){
         try {
             String parsedText="";
             //String filePath = context.getFilesDir()+"/"+subject+"Specification.pdf";

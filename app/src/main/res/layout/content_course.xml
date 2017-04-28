@@ -35,4 +35,17 @@
         android:id="@+id/downloadSpecificationButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="This is where PDF text is going to go"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/downloadSpecificationButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/extractPDFtext"
+        android:maxLines="22"
+        android:scrollbars="vertical"
+
+        />
 </RelativeLayout>

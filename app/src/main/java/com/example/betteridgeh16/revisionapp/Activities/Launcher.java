@@ -16,6 +16,8 @@ public class Launcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+        //FileManipulation.deleteFile(Launcher.this, "Accounting Specification");
+
         /*FileManipulation.createFile(Launcher.this, "courses");
         FileManipulation.createFile(Launcher.this, "websites");
         FileManipulation.createFile(Launcher.this, "examboards");

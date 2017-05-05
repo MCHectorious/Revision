@@ -22,10 +22,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.io.File;
+
 public class Course extends AppCompatActivity {
     Integer timeoutlength = 50000; //TODO:Base this number on connection speed
     Integer subjectIndex;
     String subject;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,15 @@ public class Course extends AppCompatActivity {
         subjectIndex = getIntent().getIntExtra("Subject Index", 1);
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
+
+        String courseInfo;
+        String examBoard = FileManipulation.fileToStringArray(Course.this,"exam")[subjectIndex];
+
+
+        enableOrDisableSpecButton();
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.launcher_icon);
@@ -50,18 +64,33 @@ public class Course extends AppCompatActivity {
             }
         });
 
-        Button downloadSpecButton = (Button) findViewById(R.id.downloadSpecificationButton); //TODO: Show user the download size
-        downloadSpecButton.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view){
-                (new DownloadSpecification()).execute();
-            }
-        });
+
 
 
     }
 
+    private void enableOrDisableSpecButton(){
+        Button downloadSpecButton = (Button) findViewById(R.id.downloadSpecificationButton);//TODO: Show user the download size
+        Log.i("File name is", subject+"Specification.txt");
+        if (new File(getFilesDir(), subject+"Specification.txt").exists()){
+            downloadSpecButton.setEnabled(false);
+            downloadSpecButton.setText("You have already downloaded the Specification for this subject");
+
+            Log.i("Text file", "Does exist");
+
+        }else{
+            Log.i("Text file", "Doesn't exist");
+            downloadSpecButton.setEnabled(true);
+            downloadSpecButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view){
+                    (new DownloadSpecification()).execute();
+                }
+            });
+        }
+    }
     private class DownloadSpecification extends AsyncTask<Void,Void,Void>{
         ProgressDialog mProgressDialog;
         String extractedText;
@@ -87,6 +116,9 @@ public class Course extends AppCompatActivity {
 
                 String PDFwebsite = element.attr("href");
                 Log.i("PDF website", PDFwebsite);
+
+
+
                 PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
                 //PDFextraction.extractTextFromDownloadedPDF(subject,Course.this);
                 PDFextraction.extractTextFromPDF(subject, Course.this);
@@ -99,6 +131,7 @@ public class Course extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             mProgressDialog.dismiss();
+            enableOrDisableSpecButton();
             /*TextView textView = (TextView) findViewById(R.id.extractPDFtext);
             textView.setMovementMethod(new ScrollingMovementMethod());
             textView.setText(extractedText);*/

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 import com.tom_roush.pdfbox.text.PDFTextStripper;
+import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,6 +71,7 @@ public class PDFextraction {
             }
 
             try {
+                PDFBoxResourceLoader.init(context);
                 PDFTextStripper pdfStripper = new PDFTextStripper();
                 pdfStripper.setStartPage(0);
                 //pdfStripper.setEndPage(10);
@@ -85,8 +87,17 @@ public class PDFextraction {
             }
 
 
-            FileManipulation.createFile(context, subject+"Specification.txt");
-            FileManipulation.writeToFile(context, subject+"Specification.txt",parsedText);
+            FileManipulation.createFile(context, subject+"Specification");
+            FileManipulation.writeToFile(context, subject+"Specification",parsedText);
+
+            Log.i("Parsed Text", parsedText);
+
+
+            /*if(new File(context.getFilesDir(), subject+"Specification.txt").exists()){
+                Log.i("Text File", "Found after creating it");
+            }else {
+                Log.i("Text File", "Not found after creating it?");
+            }*/
         }
 
     }

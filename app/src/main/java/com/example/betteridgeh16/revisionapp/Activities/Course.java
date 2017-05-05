@@ -44,7 +44,9 @@ public class Course extends AppCompatActivity {
         setTitle(subject);
 
         String courseInfo;
-        String examBoard = FileManipulation.fileToStringArray(Course.this,"exam")[subjectIndex];
+        String examBoard = FileManipulation.fileToStringArray(Course.this,"examboards")[subjectIndex];
+        //courseInfo += (examBoard.equals(""))? examBoard: "";
+
 
 
         enableOrDisableSpecButton();

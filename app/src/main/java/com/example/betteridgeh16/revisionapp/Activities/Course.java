@@ -43,8 +43,8 @@ public class Course extends AppCompatActivity {
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
 
-        String courseInfo;
-        String examBoard = FileManipulation.fileToStringArray(Course.this,"examboards")[subjectIndex];
+        //String courseInfo;
+        //String examBoard = FileManipulation.fileToStringArray(Course.this,"examboards")[subjectIndex];
         //courseInfo += (examBoard.equals(""))? examBoard: "";
 
 
@@ -62,6 +62,7 @@ public class Course extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(Course.this, Revise.class);
+                intent.putExtra("Subject Index", subjectIndex);
                 startActivity(intent);
             }
         });

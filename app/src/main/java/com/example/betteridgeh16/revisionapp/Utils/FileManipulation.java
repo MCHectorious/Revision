@@ -104,6 +104,33 @@ public class FileManipulation{
         return s; //TODO: http://www.journaldev.com/9383/android-internal-storage-example-tutorial
     }
 
+    public static String getRandomLineFromTextFile(Context context, String fileName){
+        Boolean foundLine = false;
+        String output="";
+        try{
+            FileInputStream fileIn= context.openFileInput(fileName + ".txt");
+            InputStreamReader InputRead= new InputStreamReader(fileIn);
+
+            char[] inputBuffer= new char[500];
+
+            int charRead;
+
+            while ((charRead=InputRead.read(inputBuffer))>0 && !foundLine) {
+                // char to string conversion
+                String readstring=String.copyValueOf(inputBuffer,0,charRead);
+                if ( (int)Math.random()*10 == 1){
+                    output =readstring;
+                }
+
+            }
+            InputRead.close();
+        }catch(IOException e){
+            Log.i("IOError",e.getMessage());
+        }
+
+        return output;
+    }
+
 
 
    /* public static Boolean isEmpty(Context context, String filename){

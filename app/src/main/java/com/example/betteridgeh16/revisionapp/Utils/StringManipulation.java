@@ -2,6 +2,8 @@ package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by betteridgeh16 on 3/30/2017.
  */
@@ -33,5 +35,30 @@ public class StringManipulation {
         }
 
         return text;
+    }
+
+    public static Integer numberofCharacter(String message, Character character){
+        Integer counter = 0;
+        for (Integer i = 0; i<message.length();i++){
+            if ((message.charAt(i))==character){
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
+    public static Integer[] arrayOfPositionsOfCharacter(String message, Character character){
+        //Integer counter = 0;
+        ArrayList<Integer> result = new ArrayList<>();
+
+
+        for (Integer i = 0; i<message.length();i++){
+            if ((message.charAt(i))==character){
+                result.add(i);
+            }
+        }
+
+        return result.toArray(new Integer[0]);
     }
 }

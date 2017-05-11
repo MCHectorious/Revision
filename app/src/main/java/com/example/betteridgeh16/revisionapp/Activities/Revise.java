@@ -41,65 +41,15 @@ public class Revise extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Input", Answer.getText().toString());
-
-
                 Snackbar.make(view, (Answer.getText().toString().equals(answer))? "Correct":"Incorrect", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                generateQuestion();
             }//TODO: Go to the next question
         });
 
         if (new File(getFilesDir(), subject+"Specification.txt").exists()){
             Log.i("Specification for tests", "Exists");
-
-            Log.i("Test", "Success");
-
-
-            String randomLine;
-            Integer counter = 1;
-
-            do{
-                randomLine = FileManipulation.getRandomLineFromTextFile(Revise.this, subject+"Specification");
-                //Log.i("Counter", counter.toString());
-                //counter++;
-            }while (randomLine.equals(""));
-
-
-
-            /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            TextView textView = new TextView(this);
-            textView.setText(randomLine);
-            textView.setTextColor(Color.WHITE);
-            alertDialogBuilder.setView(textView);
-            alertDialogBuilder.setCancelable(false).setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-
-                }
-            });
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();*/
-
-            Log.i("Random line", randomLine);
-
-            Integer[] locationsOfSpaces = StringManipulation.arrayOfPositionsOfCharacter(randomLine, ' ');
-            Integer numberOfSpaces = locationsOfSpaces.length;
-            Log.i("Number of Spaces", numberOfSpaces.toString());
-            Integer index =(int)(Math.random()*numberOfSpaces)-1;
-            Log.i("Index", index.toString());
-
-
-            answer = randomLine.substring(locationsOfSpaces[index]+1, locationsOfSpaces[index+1]);
-            Log.i("Word", answer);
-
-            TextView Question = (TextView) findViewById(R.id.Question);
-            Question.setText(StringManipulation.AsterixiseBetweenBound(randomLine, locationsOfSpaces[index], locationsOfSpaces[index+1]));
-
-
-
-
-
-
-
+            generateQuestion();
 
         }else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -120,5 +70,37 @@ public class Revise extends AppCompatActivity {
             alertDialog.show();
         }
     }
+
+    private void generateQuestion(){
+        String randomLine;
+        Integer[] locationsOfSpaces;
+
+
+
+        do{
+            randomLine = FileManipulation.getRandomLineFromTextFile(Revise.this, subject+"Specification");
+            locationsOfSpaces = StringManipulation.arrayOfPositionsOfCharacter(randomLine, ' ');
+
+        }while (randomLine.equals("")||(locationsOfSpaces.length < 2));
+
+
+        Log.i("Random line", randomLine);
+
+        Integer numberOfSpaces = locationsOfSpaces.length;
+        Log.i("NumberOfSpaces", numberOfSpaces.toString());
+
+        Integer index =(int)(Math.random()*(locationsOfSpaces.length-2));
+        Log.i("Index", index.toString());
+
+
+        answer = randomLine.substring(locationsOfSpaces[index]+1, locationsOfSpaces[index+1]);
+        Log.i("Word", answer);
+
+        TextView Question = (TextView) findViewById(R.id.Question);
+        Question.setText(StringManipulation.AsterixiseBetweenBound(randomLine, locationsOfSpaces[index], locationsOfSpaces[index+1]));
+
+    }
+
+
 
 }

@@ -119,7 +119,7 @@ public class FileManipulation{
                 // char to string conversion
                 String readstring=String.copyValueOf(inputBuffer,0,charRead);
                 if ( (int)(Math.random()*10) == 1){
-                    output =readstring;
+                    output =readstring;//TODO: Use characters to increase speed and randomness
                     foundLine = true;
                 }
 

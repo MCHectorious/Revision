@@ -48,6 +48,8 @@ public class Course extends AppCompatActivity {
         //courseInfo += (examBoard.equals(""))? examBoard: "";
 
 
+        //TODO:Next thing to work on - downloading past papers
+
 
         enableOrDisableSpecButton();
 

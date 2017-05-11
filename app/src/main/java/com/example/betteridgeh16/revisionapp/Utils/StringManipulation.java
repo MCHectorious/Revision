@@ -61,4 +61,14 @@ public class StringManipulation {
 
         return result.toArray(new Integer[0]);
     }
+
+    public static String AsterixiseBetweenBound(String string, Integer beginIndex, Integer endIndex){
+        String axterixes = "";
+        for (Integer i = beginIndex+1; i<endIndex;i++){
+            axterixes += "*";
+        }
+
+        return string.substring(0,beginIndex+1)+axterixes+string.substring(endIndex);
+    }
+
 }

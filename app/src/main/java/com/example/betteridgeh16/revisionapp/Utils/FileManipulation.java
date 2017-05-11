@@ -111,15 +111,16 @@ public class FileManipulation{
             FileInputStream fileIn= context.openFileInput(fileName + ".txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-            char[] inputBuffer= new char[500];
+            char[] inputBuffer= new char[50];
 
             int charRead;
 
             while ((charRead=InputRead.read(inputBuffer))>0 && !foundLine) {
                 // char to string conversion
                 String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                if ( (int)Math.random()*10 == 1){
+                if ( (int)(Math.random()*10) == 1){
                     output =readstring;
+                    foundLine = true;
                 }
 
             }

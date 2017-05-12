@@ -21,6 +21,7 @@ import com.example.betteridgeh16.revisionapp.Utils.PDFextraction;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 
@@ -50,6 +51,8 @@ public class Course extends AppCompatActivity {
 
         //TODO:Next thing to work on - downloading past papers
 
+
+        (new getPastPapersAndMarkSchemes()).execute();
 
         enableOrDisableSpecButton();
 
@@ -98,7 +101,6 @@ public class Course extends AppCompatActivity {
     }
     private class DownloadSpecification extends AsyncTask<Void,Void,Void>{
         ProgressDialog mProgressDialog;
-        String extractedText;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -140,6 +142,78 @@ public class Course extends AppCompatActivity {
             /*TextView textView = (TextView) findViewById(R.id.extractPDFtext);
             textView.setMovementMethod(new ScrollingMovementMethod());
             textView.setText(extractedText);*/
+        }
+    }
+
+    private class getPastPapersAndMarkSchemes extends AsyncTask<Void,Void,Void>{
+        ProgressDialog mProgressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(Course.this);
+            mProgressDialog.setTitle("Loading Past Papers and Mark Schemes");
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+        }
+
+
+
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex]+"/past-papers-and-mark-schemes";
+
+
+                Document document = Jsoup.connect(website).timeout(timeoutlength).get();
+
+                Element accordion = document.select("div[class=accordion-wrap]").first();
+
+                Log.i("Found div", (accordion!=null)? "True":"False");
+
+                Elements series = accordion.select("div[class=toggleizrSet]");
+
+                for (Integer i=0;i<series.size();i++){
+                    Element IndividualSeries = series.get(i);
+                    Log.i("Series", IndividualSeries.select("h2[class=title]").first().text());
+
+                    Elements papers = IndividualSeries.select("div[class=toggleizrPanel");
+
+
+
+                    for (Integer j=0;j<papers.size();j++){
+
+                        Log.i("Found title", (papers.get(j).select("h3[class=panelTitle]")!=null)? "True":"False");
+
+                        Log.i("Found title V2", (papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]")!=null)? "True":"False");
+
+                        Boolean b =papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]").hasText();
+                        Log.i("Has text", b.toString() );
+
+
+                        Log.i("Paper", papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]").text());
+                        Log.i("Counter", j.toString());
+                    }
+
+                }
+
+
+
+
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            mProgressDialog.dismiss();
+
+
         }
     }
 }

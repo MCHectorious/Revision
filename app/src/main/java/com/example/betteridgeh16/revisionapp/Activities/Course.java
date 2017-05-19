@@ -24,6 +24,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Course extends AppCompatActivity {
     Integer timeoutlength = 50000; //TODO:Base this number on connection speed
@@ -164,6 +165,7 @@ public class Course extends AppCompatActivity {
             try {
                 String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex]+"/past-papers-and-mark-schemes";
 
+                ArrayList<String[]> pastPaperAndSeries = new ArrayList<>();
 
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
 
@@ -175,27 +177,47 @@ public class Course extends AppCompatActivity {
 
                 for (Integer i=0;i<series.size();i++){
                     Element IndividualSeries = series.get(i);
-                    Log.i("Series", IndividualSeries.select("h2[class=title]").first().text());
+                    ArrayList<String> pastPapersEachSeries = new ArrayList<>();
+                    String nameOfSeries = IndividualSeries.select("h2[class=title]").first().text();
+
+                    Log.i("Series", nameOfSeries);
+                    pastPapersEachSeries.add(nameOfSeries);
+
 
                     Elements papers = IndividualSeries.select("div[class=toggleizrPanel");
 
 
 
+
                     for (Integer j=0;j<papers.size();j++){
 
-                        Log.i("Found title", (papers.get(j).select("h3[class=panelTitle]")!=null)? "True":"False");
-
-                        Log.i("Found title V2", (papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]")!=null)? "True":"False");
-
-                        Boolean b =papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]").hasText();
-                        Log.i("Has text", b.toString() );
 
 
-                        Log.i("Paper", papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]").text());
-                        Log.i("Counter", j.toString());
+
+
+                        //Log.i("Found title", (papers.get(j).select("h3[class=panelTitle]")!=null)? "True":"False");
+
+                       // Log.i("Found title V2", (papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]")!=null)? "True":"False");
+
+                        //Boolean b =papers.get(j).select("h3[class=panelTitle]").hasText();
+                        //Log.i("Has text", b.toString() );
+
+                        String unit = papers.get(j).select("h3[class=panelTitle]").text();
+
+
+                        Log.i("Paper", unit);
+                        pastPapersEachSeries.add(unit);
+
+                        //Log.i("Counter", j.toString());
                     }
 
+                    pastPaperAndSeries.add(pastPapersEachSeries.toArray(new String[0]));
+
                 }
+
+
+
+                Log.i("Past Paper Array", pastPaperAndSeries.toString());
 
 
 

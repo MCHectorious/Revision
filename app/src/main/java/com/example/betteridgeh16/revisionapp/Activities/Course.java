@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.Utils.PDFextraction;
+import com.example.betteridgeh16.revisionapp.Utils.PastPaperSeriesObject;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -165,7 +166,7 @@ public class Course extends AppCompatActivity {
             try {
                 String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex]+"/past-papers-and-mark-schemes";
 
-                ArrayList<String[]> pastPaperAndSeries = new ArrayList<>();
+                ArrayList<PastPaperSeriesObject> pastPaperAndSeries = new ArrayList<>();
 
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
 
@@ -177,17 +178,17 @@ public class Course extends AppCompatActivity {
 
                 for (Integer i=0;i<series.size();i++){
                     Element IndividualSeries = series.get(i);
-                    ArrayList<String> pastPapersEachSeries = new ArrayList<>();
+
                     String nameOfSeries = IndividualSeries.select("h2[class=title]").first().text();
 
                     Log.i("Series", nameOfSeries);
-                    pastPapersEachSeries.add(nameOfSeries);
+
 
 
                     Elements papers = IndividualSeries.select("div[class=toggleizrPanel");
 
 
-
+                    ArrayList<String> pastPapersEachSeries = new ArrayList<>();
 
                     for (Integer j=0;j<papers.size();j++){
 
@@ -211,13 +212,35 @@ public class Course extends AppCompatActivity {
                         //Log.i("Counter", j.toString());
                     }
 
-                    pastPaperAndSeries.add(pastPapersEachSeries.toArray(new String[0]));
+                    pastPaperAndSeries.add(new PastPaperSeriesObject(nameOfSeries, pastPapersEachSeries.toArray(new String[0])));
+
+                }
+
+                PastPaperSeriesObject[] pastPaperSeriesObjects = pastPaperAndSeries.toArray(new PastPaperSeriesObject[0]);
+
+                for (int examSeriesIndex = 0; examSeriesIndex<pastPaperSeriesObjects.length;examSeriesIndex++){
+                    //Log.i(pastPaperSeriesObjects[i].getSeriesName(),pastPaperSeriesObjects[i].getPastPapersForThisSeries().toString());
+                    String temp = "";
+
+                    //Log.i("Index", Integer.toString(examSeriesIndex));
+
+                    Log.i("Series", pastPaperSeriesObjects[examSeriesIndex].getSeriesName());
+
+                    for (int pastPaperIndex=0; pastPaperIndex<pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries().length ;pastPaperIndex++){
+                        temp = temp.concat(pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries()[pastPaperIndex]+", ");
+
+                        //Log.i("Past Paper", pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries()[pastPaperIndex]);
+                    }
+
+                    //Log.i("Past Papers for Series",temp);
+                    Log.i(pastPaperSeriesObjects[examSeriesIndex].getSeriesName(),temp);
+
+
+
 
                 }
 
 
-
-                Log.i("Past Paper Array", pastPaperAndSeries.toString());
 
 
 

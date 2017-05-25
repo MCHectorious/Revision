@@ -148,9 +148,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                // Connect to the web site
                 Document document = Jsoup.connect(subjectWebsite).timeout(timeoutlength).get();
-                // Get the html document title
 
                 Elements elementsFromFormat1 = document.select("div[class=c-column-wrapper ie8-padding-fix").select("a[href]");
                 Elements elementsFromFormat2 = document.select("div[class=listSpecs clearfix").select("a[href]");
@@ -169,8 +167,6 @@ public class Courses extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            // Set title into TextView
-            //Log.i("size",Integer.toString(CourseList.size()));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
@@ -179,7 +175,6 @@ public class Courses extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 
-                    //startActivity(intent);
                     Snackbar.make(view,CourseList.toArray(new String[0])[position],Snackbar.LENGTH_LONG)
                             .setAction("Action",null).show();
 
@@ -187,20 +182,9 @@ public class Courses extends AppCompatActivity {
                     website = WebsiteList.toArray(new String[0])[position];
                     examBoard = "AQA";
 
-                    //Log.i("Testing","Did get this far");
                     (new CourseInfo()).execute();
 
-                    /*if(FileManipulation.fileToString("courses",Courses.this).equals("")){
-                        FileManipulation.writeToFile(subject,"courses",Courses.this);
-                        FileManipulation.writeToFile(website,"websites",Courses.this);
-                        FileManipulation.writeToFile(examBoard,"examboard",Courses.this);
-                    }else{
-                        FileManipulation.appendToFile(subject,"courses",Courses.this);
-                        FileManipulation.appendToFile(website,"websites",Courses.this);
-                    }
-                    intent.putExtra("subjectListUpdated", true);
-                    startActivity(intent);
-                    */
+
 
                 }
 
@@ -215,7 +199,6 @@ public class Courses extends AppCompatActivity {
     }
     private class CourseInfo extends AsyncTask<Void, Void, Void> {
 
-        //String[] courses;
 
         List<String> CourseList = new ArrayList<>();
         List<String> WebsiteList = new ArrayList<>();
@@ -234,18 +217,8 @@ public class Courses extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                // Connect to the web site
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
-                // Get the html document title
 
-                /*Elements codesAndReferences = document.select("table[class=tableCodes]").select("tr");
-
-                for (Element e:codesAndReferences){
-                    if(e.child(0).text().equals("Qualification type")){
-                        qualification  = (e.child(1).text()==null)? "Error":e.child(1).text();
-                    }
-                }
-                */
                 Elements menu = document.select("ol[class=menus").select("a[href]");
                 qualification = (menu.isEmpty())? " ":menu.last().text();
 
@@ -256,16 +229,7 @@ public class Courses extends AppCompatActivity {
 
                 importantDate = (keyDates.isEmpty())? " ":keyDates.first().text();
 
-                //for (Element e:keyDates){
-                //    importantDate  = (e.child(0).child(0).text()==null)? "Error":e.child(0).child(0).text();
-                //    importantDate = e.child(0).child(0).text();
-                //}
 
-
-                //if(CourseList.size()==0){
-                 //   Log.i("None Found","Yes");
-                  //  CourseList.add("No courses were found. Sorry.");
-                //}
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -282,13 +246,6 @@ public class Courses extends AppCompatActivity {
             Log.i("qualification",qualification );
             Log.i("important date",importantDate);
 
-            //if(FileManipulation.fileToString("courses",Courses.this).equals("")){
-            //    FileManipulation.writeToFile(subject,"courses",Courses.this);
-            //    FileManipulation.writeToFile(website,"websites",Courses.this);
-            //    FileManipulation.writeToFile(examBoard,"examboards",Courses.this);
-            //    FileManipulation.writeToFile(qualification,"qualifications",Courses.this);
-            //    FileManipulation.writeToFile(importantDate,"importantdates",Courses.this);
-            //}else{
 
 
 
@@ -296,7 +253,8 @@ public class Courses extends AppCompatActivity {
 
 
 
-            //}
+
+
             Log.i("Courses", FileManipulation.fileToString(Courses.this,"courses"));
             Log.i("websites",FileManipulation.fileToString(Courses.this,"websites" ));
             Log.i("examboards",FileManipulation.fileToString(Courses.this, "examboards"));

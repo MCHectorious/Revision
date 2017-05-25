@@ -12,9 +12,12 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.example.betteridgeh16.revisionapp.R;
+import com.example.betteridgeh16.revisionapp.Utils.CustomExpandableListAdapter;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.Utils.PDFextraction;
 import com.example.betteridgeh16.revisionapp.Utils.PastPaperSeriesObject;
@@ -26,13 +29,15 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Course extends AppCompatActivity {
     Integer timeoutlength = 50000; //TODO:Base this number on connection speed
     Integer subjectIndex;
     String subject;
 
-
+    HashMap<String, List<String>> seriesAndPastPapers;
 
 
     @Override
@@ -46,15 +51,17 @@ public class Course extends AppCompatActivity {
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
 
-        //String courseInfo;
-        //String examBoard = FileManipulation.fileToStringArray(Course.this,"examboards")[subjectIndex];
-        //courseInfo += (examBoard.equals(""))? examBoard: "";
-
 
         //TODO:Next thing to work on - downloading past papers
 
 
         (new getPastPapersAndMarkSchemes()).execute();
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        List<String> expandableListTitle = new ArrayList<>(seriesAndPastPapers.keySet());
+        ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, seriesAndPastPapers);
+        expandableListView.setAdapter(expandableListAdapter);
+
+
 
         enableOrDisableSpecButton();
 
@@ -129,7 +136,6 @@ public class Course extends AppCompatActivity {
 
 
                 PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
-                //PDFextraction.extractTextFromDownloadedPDF(subject,Course.this);
                 PDFextraction.extractTextFromPDF(subject, Course.this);
             }catch (Exception e){
                 e.printStackTrace();
@@ -141,9 +147,7 @@ public class Course extends AppCompatActivity {
         protected void onPostExecute(Void result){
             mProgressDialog.dismiss();
             enableOrDisableSpecButton();
-            /*TextView textView = (TextView) findViewById(R.id.extractPDFtext);
-            textView.setMovementMethod(new ScrollingMovementMethod());
-            textView.setText(extractedText);*/
+
         }
     }
 
@@ -166,7 +170,7 @@ public class Course extends AppCompatActivity {
             try {
                 String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex]+"/past-papers-and-mark-schemes";
 
-                ArrayList<PastPaperSeriesObject> pastPaperAndSeries = new ArrayList<>();
+                //ArrayList<PastPaperSeriesObject> pastPaperAndSeries = new ArrayList<>();
 
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
 
@@ -196,49 +200,40 @@ public class Course extends AppCompatActivity {
 
 
 
-                        //Log.i("Found title", (papers.get(j).select("h3[class=panelTitle]")!=null)? "True":"False");
-
-                       // Log.i("Found title V2", (papers.get(j).select("h3[class=panelTitle]").select("a[class=togglePanel show]")!=null)? "True":"False");
-
-                        //Boolean b =papers.get(j).select("h3[class=panelTitle]").hasText();
-                        //Log.i("Has text", b.toString() );
-
                         String unit = papers.get(j).select("h3[class=panelTitle]").text();
 
 
                         Log.i("Paper", unit);
                         pastPapersEachSeries.add(unit);
 
-                        //Log.i("Counter", j.toString());
                     }
 
-                    pastPaperAndSeries.add(new PastPaperSeriesObject(nameOfSeries, pastPapersEachSeries.toArray(new String[0])));
+                    //pastPaperAndSeries.add(new PastPaperSeriesObject(nameOfSeries, pastPapersEachSeries.toArray(new String[0])));
+                    seriesAndPastPapers.put(nameOfSeries,pastPapersEachSeries);
 
                 }
 
-                PastPaperSeriesObject[] pastPaperSeriesObjects = pastPaperAndSeries.toArray(new PastPaperSeriesObject[0]);
+                /*PastPaperSeriesObject[] pastPaperSeriesObjects = pastPaperAndSeries.toArray(new PastPaperSeriesObject[0]);
 
                 for (int examSeriesIndex = 0; examSeriesIndex<pastPaperSeriesObjects.length;examSeriesIndex++){
-                    //Log.i(pastPaperSeriesObjects[i].getSeriesName(),pastPaperSeriesObjects[i].getPastPapersForThisSeries().toString());
                     String temp = "";
 
-                    //Log.i("Index", Integer.toString(examSeriesIndex));
 
                     Log.i("Series", pastPaperSeriesObjects[examSeriesIndex].getSeriesName());
 
                     for (int pastPaperIndex=0; pastPaperIndex<pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries().length ;pastPaperIndex++){
                         temp = temp.concat(pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries()[pastPaperIndex]+", ");
 
-                        //Log.i("Past Paper", pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries()[pastPaperIndex]);
                     }
 
-                    //Log.i("Past Papers for Series",temp);
                     Log.i(pastPaperSeriesObjects[examSeriesIndex].getSeriesName(),temp);
 
 
 
 
-                }
+                }*/
+
+                Log.i("Past Papers", seriesAndPastPapers.toString());
 
 
 

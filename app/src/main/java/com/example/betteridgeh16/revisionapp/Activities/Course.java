@@ -37,7 +37,7 @@ public class Course extends AppCompatActivity {
     Integer subjectIndex;
     String subject;
 
-    HashMap<String, List<String>> seriesAndPastPapers;
+    HashMap<String, List<String>> seriesAndPastPapers = new HashMap<>();
 
 
     @Override
@@ -56,6 +56,7 @@ public class Course extends AppCompatActivity {
 
 
         (new getPastPapersAndMarkSchemes()).execute();
+        Log.i("test", "got this far");
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         List<String> expandableListTitle = new ArrayList<>(seriesAndPastPapers.keySet());
         ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, seriesAndPastPapers);

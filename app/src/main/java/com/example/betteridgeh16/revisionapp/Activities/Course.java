@@ -66,7 +66,8 @@ public class Course extends AppCompatActivity {
 
         enableOrDisableSpecButton();
 
-        Log.i("test", "test");
+        //Log.i("test", "test");//TODO: Fix Github
+        //test
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -96,10 +96,6 @@ public class Courses extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                    Intent intent = new Intent(Courses.this, Home.class);
-                    int itemPosition = position;
-                    //intent.putExtra("Course", );
-                    //startActivity(intent);
                     Snackbar.make(view,CourseList.toArray(new String[0])[position],Snackbar.LENGTH_LONG)
                             .setAction("Action",null).show();
                     topic = CourseList.toArray(new String[0])[position];

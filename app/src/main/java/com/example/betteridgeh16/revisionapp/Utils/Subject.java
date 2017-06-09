@@ -14,7 +14,6 @@ public class Subject {
         super();
     }
 
-    //public Subject(Bitmap icon, String subject, String examboard, String qualification,  String date ) {
     public Subject(Integer icon, String subject, String examboard, String qualification,  String date ) {
         super();
         this.icon = icon;

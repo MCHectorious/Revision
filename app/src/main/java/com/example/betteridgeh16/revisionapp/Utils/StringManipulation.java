@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class StringManipulation {
     public static String trimStringToCourse(String text){
-        String output = "";
         String[] prefixesToRemove = {"A-level ", "GCSE"};
         String[] phrasesToRemove = {"New ", "New"};
         for (String s:prefixesToRemove){
@@ -49,7 +48,6 @@ public class StringManipulation {
     }
 
     public static Integer[] arrayOfPositionsOfCharacter(String message, Character character){
-        //Integer counter = 0;
         ArrayList<Integer> result = new ArrayList<>();
 
 

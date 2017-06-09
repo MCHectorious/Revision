@@ -51,23 +51,17 @@ public class Course extends AppCompatActivity {
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
 
-
-        //TODO:Next thing to work on - downloading past papers
-
-
         (new getPastPapersAndMarkSchemes()).execute();
         Log.i("test", "got this far");
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        List<String> expandableListTitle = new ArrayList<>(seriesAndPastPapers.keySet());
-        ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, seriesAndPastPapers);
-        expandableListView.setAdapter(expandableListAdapter);
+
+
 
 
 
         enableOrDisableSpecButton();
 
-        //Log.i("test", "test");//TODO: Fix Github
-        //test
+        //TODO: Fix Github
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -171,15 +165,9 @@ public class Course extends AppCompatActivity {
         protected Void doInBackground(Void... params){
             try {
                 String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex]+"/past-papers-and-mark-schemes";
-
-                //ArrayList<PastPaperSeriesObject> pastPaperAndSeries = new ArrayList<>();
-
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
-
                 Element accordion = document.select("div[class=accordion-wrap]").first();
-
                 Log.i("Found div", (accordion!=null)? "True":"False");
-
                 Elements series = accordion.select("div[class=toggleizrSet]");
 
                 for (Integer i=0;i<series.size();i++){
@@ -210,40 +198,10 @@ public class Course extends AppCompatActivity {
 
                     }
 
-                    //pastPaperAndSeries.add(new PastPaperSeriesObject(nameOfSeries, pastPapersEachSeries.toArray(new String[0])));
                     seriesAndPastPapers.put(nameOfSeries,pastPapersEachSeries);
 
                 }
-
-                /*PastPaperSeriesObject[] pastPaperSeriesObjects = pastPaperAndSeries.toArray(new PastPaperSeriesObject[0]);
-
-                for (int examSeriesIndex = 0; examSeriesIndex<pastPaperSeriesObjects.length;examSeriesIndex++){
-                    String temp = "";
-
-
-                    Log.i("Series", pastPaperSeriesObjects[examSeriesIndex].getSeriesName());
-
-                    for (int pastPaperIndex=0; pastPaperIndex<pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries().length ;pastPaperIndex++){
-                        temp = temp.concat(pastPaperSeriesObjects[examSeriesIndex].getPastPapersForThisSeries()[pastPaperIndex]+", ");
-
-                    }
-
-                    Log.i(pastPaperSeriesObjects[examSeriesIndex].getSeriesName(),temp);
-
-
-
-
-                }*/
-
                 Log.i("Past Papers", seriesAndPastPapers.toString());
-
-
-
-
-
-
-
-
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -254,6 +212,13 @@ public class Course extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             mProgressDialog.dismiss();
+            Log.i("test","test");
+
+            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+            List<String> expandableListTitle = new ArrayList<>(seriesAndPastPapers.keySet());
+            ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(Course.this, expandableListTitle, seriesAndPastPapers);
+            expandableListView.setAdapter(expandableListAdapter);
+
 
 
         }

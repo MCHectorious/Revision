@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StringManipulation {
     public static String trimStringToCourse(String text){
-        String[] prefixesToRemove = {"A-level ", "GCSE"};
+        String[] prefixesToRemove = {"A-level ", "GCSE", "GCSE ","AS","AS "};
         String[] phrasesToRemove = {"New ", "New"};
         for (String s:prefixesToRemove){
             if(text.startsWith(s)){

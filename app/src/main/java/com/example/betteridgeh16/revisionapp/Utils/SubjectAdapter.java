@@ -2,6 +2,7 @@ package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.Subject;
+
+import java.util.Random;
 
 /**
  * Created by betteridgeh16 on 2/28/2017.
@@ -29,7 +32,7 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
     }
 
     static class SubjectHolder{
-        ImageView iconView;
+        TextView iconView;
         TextView subjectView,examboardView,dateView,qualificationView;
     }
 
@@ -43,7 +46,7 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new SubjectHolder();
-            holder.iconView = (ImageView)row.findViewById(R.id.subjectIcon);
+            holder.iconView = (TextView)row.findViewById(R.id.subjectIcon);
             holder.subjectView = (TextView)row.findViewById(R.id.subjectTextView);
             holder.examboardView = (TextView)row.findViewById(R.id.examBoardTextView);
             holder.dateView = (TextView)row.findViewById(R.id.importantDateTextView);
@@ -55,7 +58,15 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
         }
 
         Subject subject = data[position];
-        holder.iconView.setImageResource(subject.icon);
+        holder.iconView.setText(subject.icon);
+
+        Random random = new Random();
+        int r = random.nextInt(255);
+        int g = random.nextInt(255);
+        int b = random.nextInt(255);
+
+
+        holder.iconView.setBackgroundColor(Color.rgb(r,g,b));
         //holder.iconView.setImageBitmap(subject.icon);
         holder.subjectView.setText(subject.subject);
         holder.examboardView.setText(subject.examboard);

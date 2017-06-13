@@ -83,7 +83,7 @@ public class Home extends AppCompatActivity {
             for(int i = 0;i<subject.length;i++){
                 Log.i("test",subject[i]);
                 //subjectData.add(new Subject(GraphicsManipulation.getIcon(Home.this, subject[i]),subject[i],examboard[i],qualification[i],importantDate[i]));
-                subjectData.add(new Subject(R.drawable.right_arrow,subject[i],examboard[i],qualification[i],importantDate[i]));
+                subjectData.add(new Subject(subject[i],subject[i],examboard[i],qualification[i],importantDate[i]));
             }
             //subjectData.add(new Subject(R.drawable.add_white,"test","test","test","test"));
 

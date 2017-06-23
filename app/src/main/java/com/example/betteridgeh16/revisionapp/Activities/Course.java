@@ -52,17 +52,9 @@ public class Course extends AppCompatActivity {
         setTitle(subject);
 
         (new getPastPapersAndMarkSchemes()).execute();
-        Log.i("test", "got this far");
-
-
-
-
-
         enableOrDisableSpecButton();
 
         //TODO: Fix Github
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.launcher_icon);
@@ -76,11 +68,6 @@ public class Course extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
 
     private void enableOrDisableSpecButton(){
@@ -89,9 +76,7 @@ public class Course extends AppCompatActivity {
         if (new File(getFilesDir(), subject+"Specification.txt").exists()){
             downloadSpecButton.setEnabled(false);
             downloadSpecButton.setText("You have already downloaded the Specification for this subject");
-
             Log.i("Text file", "Does exist");
-
         }else{
             Log.i("Text file", "Doesn't exist");
             downloadSpecButton.setEnabled(true);
@@ -116,8 +101,6 @@ public class Course extends AppCompatActivity {
             mProgressDialog.show();
         }
 
-
-
         @Override
         protected Void doInBackground(Void... params){
             try {
@@ -128,8 +111,6 @@ public class Course extends AppCompatActivity {
 
                 String PDFwebsite = element.attr("href");
                 Log.i("PDF website", PDFwebsite);
-
-
 
                 PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
                 PDFextraction.extractTextFromPDF(subject, Course.this);
@@ -143,7 +124,6 @@ public class Course extends AppCompatActivity {
         protected void onPostExecute(Void result){
             mProgressDialog.dismiss();
             enableOrDisableSpecButton();
-
         }
     }
 

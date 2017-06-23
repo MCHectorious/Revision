@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Courses extends AppCompatActivity {
+public class CoursesList extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     String subject,website,examBoard,qualification, importantDate;
     String subjectWebsite;
@@ -57,7 +57,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(Courses.this);
+            mProgressDialog = new ProgressDialog(CoursesList.this);
             mProgressDialog.setTitle("Getting List of Subjects");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -89,7 +89,7 @@ public class Courses extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // Set title into TextView
             Log.i("Number of subjects",Integer.toString(CourseList.size()));
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(CoursesList.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,7 +128,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(Courses.this);
+            mProgressDialog = new ProgressDialog(CoursesList.this);
             mProgressDialog.setTitle("Getting a List of Qualifications Relating to " + topic);
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -163,7 +163,7 @@ public class Courses extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Courses.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(CoursesList.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -201,7 +201,7 @@ public class Courses extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(Courses.this);
+            mProgressDialog = new ProgressDialog(CoursesList.this);
             mProgressDialog.setTitle("Gathering Additional Information");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -251,29 +251,29 @@ public class Courses extends AppCompatActivity {
 
 
 
-            Log.i("Courses", FileManipulation.fileToString(Courses.this,"courses"));
-            Log.i("websites",FileManipulation.fileToString(Courses.this,"websites" ));
-            Log.i("examboards",FileManipulation.fileToString(Courses.this, "examboards"));
-            Log.i("qualifications",FileManipulation.fileToString(Courses.this, "qualifications" ));
-            Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
+            Log.i("CoursesList", FileManipulation.fileToString(CoursesList.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(CoursesList.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(CoursesList.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(CoursesList.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(CoursesList.this,"importantdates"));
 
 
-            FileManipulation.appendToFile(Courses.this,"courses", StringManipulation.trimStringToCourse(subject));
-            FileManipulation.appendToFile(Courses.this,"websites",website);
-            FileManipulation.appendToFile(Courses.this,"examboards",examBoard);
-            FileManipulation.appendToFile( Courses.this,"qualifications",qualification);
-            FileManipulation.appendToFile(Courses.this,"importantdates",importantDate);
+            FileManipulation.appendToFile(CoursesList.this,"courses", StringManipulation.trimStringToCourse(subject));
+            FileManipulation.appendToFile(CoursesList.this,"websites",website);
+            FileManipulation.appendToFile(CoursesList.this,"examboards",examBoard);
+            FileManipulation.appendToFile( CoursesList.this,"qualifications",qualification);
+            FileManipulation.appendToFile(CoursesList.this,"importantdates",importantDate);
 
 
-            Log.i("Courses",FileManipulation.fileToString(Courses.this,"courses"));
-            Log.i("websites",FileManipulation.fileToString(Courses.this,"websites" ));
-            Log.i("examboards",FileManipulation.fileToString(Courses.this, "examboards"));
-            Log.i("qualifications",FileManipulation.fileToString(Courses.this, "qualifications" ));
-            Log.i("importantdates",FileManipulation.fileToString(Courses.this,"importantdates"));
+            Log.i("CoursesList",FileManipulation.fileToString(CoursesList.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(CoursesList.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(CoursesList.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(CoursesList.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(CoursesList.this,"importantdates"));
 
 
 
-            Intent intent = new Intent(Courses.this, Home.class);
+            Intent intent = new Intent(CoursesList.this, Home.class);
             startActivity(intent);
             mProgressDialog.dismiss();
 

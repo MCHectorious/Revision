@@ -4,6 +4,8 @@ import android.content.Context;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.example.betteridgeh16.revisionapp.Activities.CoursesList;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,7 +118,6 @@ public class FileManipulation{
             int charRead;
 
             while ((charRead=InputRead.read(inputBuffer))>0 && !foundLine) {
-                // char to string conversion
                 String readstring=String.copyValueOf(inputBuffer,0,charRead);
                 if ( (int)(Math.random()*10) == 1){
                     output =readstring;//TODO: Use characters to increase speed and randomness
@@ -132,26 +133,14 @@ public class FileManipulation{
         return output;
     }
 
+    public static void clearAllFiles(Context context){
 
-
-   /* public static Boolean isEmpty(Context context, String filename){
-        Boolean result;
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
-
-
-            bufferedReader.readLine()) != null){
-
-            }
-
-            bufferedReader.close();
-
-        }catch (IOException e){
-            Log.e("Error", e.getMessage());
-
-        }
-    }*/
-
+        FileManipulation.writeToFile(context, "courses", "");
+        FileManipulation.writeToFile(context, "websites", "");
+        FileManipulation.writeToFile(context, "examboards", "");
+        FileManipulation.writeToFile(context, "qualifications", "");
+        FileManipulation.writeToFile(context, "importantdates", "");
+    }
 }
 
 

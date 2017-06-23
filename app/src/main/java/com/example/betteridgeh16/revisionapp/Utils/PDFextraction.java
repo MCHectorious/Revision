@@ -74,7 +74,6 @@ public class PDFextraction {
                 PDFBoxResourceLoader.init(context);
                 PDFTextStripper pdfStripper = new PDFTextStripper();
                 pdfStripper.setStartPage(0);
-                //pdfStripper.setEndPage(10);
                 parsedText = pdfStripper.getText(document);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -91,13 +90,6 @@ public class PDFextraction {
             FileManipulation.writeToFile(context, subject+"Specification",parsedText);
 
             Log.i("Parsed Text", parsedText);
-
-
-            /*if(new File(context.getFilesDir(), subject+"Specification.txt").exists()){
-                Log.i("Text File", "Found after creating it");
-            }else {
-                Log.i("Text File", "Not found after creating it?");
-            }*/
         }
 
     }
@@ -106,74 +98,3 @@ public class PDFextraction {
 }
 
 
-
-    /*public static void extractTextFromDownloadedPDF(String subject, Context context){
-        try {
-            String parsedText="";
-            //String filePath = context.getFilesDir()+"/"+subject+"Specification.pdf";
-            String filePath = subject+"Specification.pdf";
-            String absoluteFilePath = context.getFilesDir().getAbsolutePath()+"/"+filePath;
-            File file = new File(context.getFilesDir(),filePath);
-            if(!file.exists()){
-                Log.i("File", "does not exist");
-            }else{
-                Log.i("File", "does exist");
-            }
-            PdfReader reader = new PdfReader(absoluteFilePath);
-            int n = reader.getNumberOfPages();
-            for (int i = 0; i <n ; i++) {
-                parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n";
-            }
-            Log.i("Extracted Text", parsedText);
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void extractTextFromOnlinePDF(String url, Context context){
-        try {
-            String parsedText="";
-
-            Log.i("Website", url);
-            PdfReader reader = new PdfReader(new URL(url));
-            int n = reader.getNumberOfPages();
-            for (int i = 0; i <n ; i++) {
-                parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n";
-            }
-            Log.i("Extracted Text", parsedText);
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-
-
-}/*
-import com.aspose.pdf.Document;
-import com.aspose.pdf.MemoryCleaner;
-import com.aspose.pdf.TextAbsorber;
-
-
-    // Open document
-    Document pdfDocument = new Document("input.pdf");
-    // Create TextAbsorber object to extract text
-    TextAbsorber textAbsorber = new TextAbsorber();
-    // Accept the absorber for all the pages
-    pdfDocument.getPages().accept(textAbsorber);
-    // Get the extracted text
-    String extractedText = textAbsorber.getText();
-    // Create a writer and open the file
-    java.io.FileWriter writer = new java.io.FileWriter(new java.io.File("Extracted_text.txt"));
-    writer.write(extractedText);
-    // Write a line of text to the file
-    // tw.WriteLine(extractedText);
-    // Close the stream
-    writer.close();
-}
-*/

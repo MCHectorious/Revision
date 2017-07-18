@@ -19,5 +19,8 @@ public class Launcher extends AppCompatActivity {
 
         Intent intent = new Intent(Launcher.this, Home.class);
         startActivity(intent);
+
+
+        //FileManipulation.deleteAllFiles(Launcher.this);
     }
 }

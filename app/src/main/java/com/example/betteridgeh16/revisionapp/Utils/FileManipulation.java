@@ -141,6 +141,14 @@ public class FileManipulation{
         FileManipulation.writeToFile(context, "qualifications", "");
         FileManipulation.writeToFile(context, "importantdates", "");
     }
+
+    public static void deleteAllFiles(Context context){
+        FileManipulation.deleteFile(context, "courses");
+        FileManipulation.deleteFile(context, "websites");
+        FileManipulation.deleteFile(context, "examboards");
+        FileManipulation.deleteFile(context, "qualifications");
+        FileManipulation.deleteFile(context, "importantdates");
+    }
 }
 
 

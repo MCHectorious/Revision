@@ -17,7 +17,7 @@ public class ExamBoards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_boards);
         ListView listView = (ListView) findViewById(R.id.List2);
-        final String[] examBoards = new String[] {"AQA","OCR"};
+        final String[] examBoards = new String[] {"AQA","Other Examboards - Coming Soon"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, examBoards);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

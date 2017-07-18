@@ -3,6 +3,7 @@ package com.example.betteridgeh16.revisionapp.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,29 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
         Subject subject = data[position];
         holder.iconView.setText(subject.icon);
 
-        Random random = new Random();
-        int r = random.nextInt(255);
-        int g = random.nextInt(255);
-        int b = random.nextInt(255);
+        //Random random = new Random();
+        String stringToHash = subject.subject + subject.examboard + subject.qualification;
+        int r=19;
+        int g=29;
+        int b=31;
+
+        for (int i = 0; i<stringToHash.length();i++){
+            r=11*r + stringToHash.charAt(i);
+            g=103*r + stringToHash.charAt(i);
+            b=41*r + stringToHash.charAt(i);
+            Log.i("char",Integer.toString(stringToHash.charAt(i)));
+        }
+
+        r = Math.abs(r%100);
+        g = Math.abs(g%100);
+        b = Math.abs(b%100);
+
+        Log.i("r",Integer.toString(r));
+        Log.i("g",Integer.toString(g));
+        Log.i("b",Integer.toString(b));
+        //r=100;
+        //g=100;
+        //b=100;
 
 
         holder.iconView.setBackgroundColor(Color.rgb(r,g,b));

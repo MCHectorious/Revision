@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +87,41 @@ public class Home extends AppCompatActivity {
                 }
 
             });
+
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                               int pos, long id) {
+                    // TODO Auto-generated method stub
+
+                    Log.v("long clicked","pos: " + pos);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Home.this);
+                    alert.setTitle("Delete Course? - Coming Soon");
+                    alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface d, int which) {
+                            //onTouchListener should recognize which friend is being pressed on,
+                            //similar to onItemClickListener
+
+                        }
+                    });
+
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //Do Nothing
+                        }
+                    });
+
+                    alert.create().show();
+
+                    return true;
+                }
+            });
+
 
         }
 

@@ -71,19 +71,19 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
             r=11*r + stringToHash.charAt(i);
             g=103*r + stringToHash.charAt(i);
             b=41*r + stringToHash.charAt(i);
-            Log.i("char",Integer.toString(stringToHash.charAt(i)));
+            //Log.i("char",Integer.toString(stringToHash.charAt(i)));
         }
 
-        r = Math.abs(r%100);
-        g = Math.abs(g%100);
-        b = Math.abs(b%100);
+        r = Math.abs(r%200);
+        g = Math.abs(g%200);
+        b = Math.abs(b%200);
 
-        Log.i("r",Integer.toString(r));
-        Log.i("g",Integer.toString(g));
-        Log.i("b",Integer.toString(b));
-        //r=100;
-        //g=100;
-        //b=100;
+        //Log.i("r",Integer.toString(r));
+        //Log.i("g",Integer.toString(g));
+        //Log.i("b",Integer.toString(b));
+        //r=200;
+        //g=200;
+        //b=200;
 
 
         holder.iconView.setBackgroundColor(Color.rgb(r,g,b));

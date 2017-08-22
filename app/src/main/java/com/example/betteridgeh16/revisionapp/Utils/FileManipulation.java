@@ -149,6 +149,14 @@ public class FileManipulation{
         FileManipulation.deleteFile(context, "qualifications");
         FileManipulation.deleteFile(context, "importantdates");
     }
+
+    public static void deleteAll(Context context){
+        context.getFilesDir().delete();
+        //context.fileList()
+
+    }
+
+
 }
 
 

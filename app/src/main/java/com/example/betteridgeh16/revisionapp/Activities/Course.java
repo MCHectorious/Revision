@@ -47,6 +47,7 @@ public class Course extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         subjectIndex = getIntent().getIntExtra("Subject Index", 1);
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
@@ -105,9 +106,14 @@ public class Course extends AppCompatActivity {
         protected Void doInBackground(Void... params){
             try {
                 String website = FileManipulation.fileToStringArray(Course.this,"websites")[subjectIndex];
+
+                Log.i("Website", website);
+
+
                 Document document = Jsoup.connect(website).timeout(timeoutlength).get();
 
                 Element element = document.select("a[class=bttn downloadBttn bttnG no-icon").first();
+                if(element==null){element = document.select("li[class=icon iconPDF_File]").first().child(0);}
 
                 String PDFwebsite = element.attr("href");
                 Log.i("PDF website", PDFwebsite);

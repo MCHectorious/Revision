@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.betteridgeh16.revisionapp.Utils.FileManipulation;
 import com.example.betteridgeh16.revisionapp.R;
 import com.example.betteridgeh16.revisionapp.Utils.GraphicsManipulation;
+import com.example.betteridgeh16.revisionapp.Utils.StringManipulation;
 
 public class Launcher extends AppCompatActivity {
 
@@ -18,9 +19,14 @@ public class Launcher extends AppCompatActivity {
 
 
         Intent intent = new Intent(Launcher.this, Home.class);
+
+
+
+        //FileManipulation.deleteAll(Launcher.this);
+
+        //Log.i("Error", StringManipulation.trimStringToCourse("General Studies Business"));
+
         startActivity(intent);
 
-
-        FileManipulation.deleteAll(Launcher.this);
     }
 }

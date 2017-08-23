@@ -24,14 +24,20 @@ public class StringManipulation {
             }
         }
 
-        if(text.substring(text.lastIndexOf('(')+1,text.lastIndexOf(')')-1).matches("(Draft )*(0|1|2|3|4|5|6|7|8|9)+")){
-            try{
-                text = text.substring(0,text.lastIndexOf('(')-1).concat(text.substring(text.lastIndexOf(')')+1));
-            }catch (Exception e){
-                text = text.substring(0,text.lastIndexOf('(')-1);
-            }
+        if(text.contains("(")){
+            if(text.substring(text.lastIndexOf('(')+1,text.lastIndexOf(')')-1).matches("(Draft )*(0|1|2|3|4|5|6|7|8|9)+")){
+                try{
+                    text = text.substring(0,text.lastIndexOf('(')-1).concat(text.substring(text.lastIndexOf(')')+1));
+                }catch (Exception e){
+                    text = text.substring(0,text.lastIndexOf('(')-1);
+                }
 
+            }
         }
+
+
+
+        Log.i("Text",text);
 
         return text;
     }

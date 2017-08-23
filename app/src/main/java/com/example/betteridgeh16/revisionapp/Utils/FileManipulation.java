@@ -151,8 +151,12 @@ public class FileManipulation{
     }
 
     public static void deleteAll(Context context){
-        context.getFilesDir().delete();
         //context.fileList()
+
+        for (String File:context.fileList()){
+            context.deleteFile(File);
+        }
+
 
     }
 

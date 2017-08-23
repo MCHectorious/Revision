@@ -97,6 +97,9 @@ public class Course extends AppCompatActivity {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(Course.this);
             mProgressDialog.setTitle("Downloading Specification");
+
+
+
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -117,6 +120,7 @@ public class Course extends AppCompatActivity {
 
                 String PDFwebsite = element.attr("href");
                 Log.i("PDF website", PDFwebsite);
+                Log.i("Size of PDF in bytes",Integer.toString(PDFextraction.getSizeOfURL(PDFwebsite)) );
 
                 PDFextraction.downloadPDF(PDFwebsite,subject,Course.this);
                 PDFextraction.extractTextFromPDF(subject, Course.this);

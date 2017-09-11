@@ -13,22 +13,11 @@
     tools:context="com.example.betteridgeh16.revisionapp.Activities.Course"
     tools:showIn="@layout/activity_course">
 
-    <TextView
-        android:text="This is where information about the course will go"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/courseInfo"
-        android:textStyle="italic"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <Button
-        android:text="Download Specification"
+        android:text="List of Information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/downloadSpecificationButton"
-        android:layout_below="@+id/courseInfo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

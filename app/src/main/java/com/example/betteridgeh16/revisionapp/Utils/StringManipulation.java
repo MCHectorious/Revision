@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StringManipulation {
     public static String trimStringToCourse(String text){
-        String[] prefixesToRemove = {"AS and A-level ","A-level", "GCSE","AS","Level 1 and Level 2 ","Level 1 ","Level 2 ","Level 3 ","Level 1/2 ","Certificate in "," "};
+        String[] prefixesToRemove = {"A-level ", "GCSE", "GCSE ","AS","AS "};
         String[] phrasesToRemove = {"New ", "New"};
         for (String s:prefixesToRemove){
             if(text.startsWith(s)){
@@ -19,31 +19,27 @@ public class StringManipulation {
         }
         for (String s:phrasesToRemove){
             if(text.contains(s)){
-                //Log.i("Phrase to Remove", "True");
+                Log.i("Phrase to Remove", "True");
                 text = text.substring(0, text.indexOf(s)) + text.substring(text.indexOf(s)+s.length());
             }
         }
 
+        if(text.contains("(")){
+            if(text.substring(text.lastIndexOf('(')+1,text.lastIndexOf(')')-1).matches("(Draft )*(0|1|2|3|4|5|6|7|8|9)+")){
+                try{
+                    text = text.substring(0,text.lastIndexOf('(')-1).concat(text.substring(text.lastIndexOf(')')+1));
+                }catch (Exception e){
+                    text = text.substring(0,text.lastIndexOf('(')-1);
+                }
 
-
-
-        //if(text.substring(text.lastIndexOf('(')+1,text.lastIndexOf(')')-1).matches("(Draft )*(0|1|2|3|4|5|6|7|8|9)+")){
-
-        if(text.substring(text.lastIndexOf('(')+1,text.lastIndexOf(')')-1).length()>0){
-            try{
-                text = text.substring(0,text.lastIndexOf('(')-1).concat(text.substring(text.lastIndexOf(')')+1));
-            }catch (Exception e){
-                text = text.substring(0,text.lastIndexOf('(')-1);
             }
-
         }
 
-        text= text.substring(0,1).toUpperCase()+text.substring(1);
 
+
+        Log.i("Text",text);
 
         return text;
-
-
     }
 
     public static Integer numberofCharacter(String message, Character character){

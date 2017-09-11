@@ -24,6 +24,16 @@ import java.net.URL;
  * Created by betteridgeh16 on 4/20/2017.
  */
 public class PDFextraction {
+    public static int getSizeOfURL(String url){
+        try{
+            URL u = new URL(url);
+            HttpURLConnection c = (HttpURLConnection) u.openConnection();
+            return c.getContentLength();
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
     public static void downloadPDF(String url, String subject, Context context){
         try{
             URL u = new URL(url);
@@ -37,6 +47,8 @@ public class PDFextraction {
 
 
             InputStream in = c.getInputStream();
+
+
 
             byte[] buffer = new byte[1024];
             int len1 = 0;

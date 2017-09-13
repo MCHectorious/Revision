@@ -3,4 +3,5 @@
     <string name="action_settings">Settings - Coming Eventually</string>
     <string name="title_activity_course">Course</string>
     <string name="title_activity_revise">Questions</string>
+    <string name="title_activity_course_information_list">CourseInformationList</string>
 </resources>

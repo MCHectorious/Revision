@@ -24,7 +24,7 @@ public class ExamBoards extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ExamBoards.this, CoursesList.class);
+                Intent intent = new Intent(ExamBoards.this, QualificationsList.class);
                 int itemPosition = position;
                 intent.putExtra("ExamBoard", examBoards[position]);
                 startActivity(intent);

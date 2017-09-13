@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesList extends AppCompatActivity {
+public class QualificationsList extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     String subject,website,examBoard,qualification, importantDate;
     String subjectWebsite;
@@ -57,7 +57,7 @@ public class CoursesList extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(CoursesList.this);
+            mProgressDialog = new ProgressDialog(QualificationsList.this);
             mProgressDialog.setTitle("Getting List of Subjects");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -89,7 +89,7 @@ public class CoursesList extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // Set title into TextView
             Log.i("Number of subjects",Integer.toString(CourseList.size()));
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(CoursesList.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(QualificationsList.this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,7 +128,7 @@ public class CoursesList extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(CoursesList.this);
+            mProgressDialog = new ProgressDialog(QualificationsList.this);
             mProgressDialog.setTitle("Getting a List of Qualifications Relating to " + topic);
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -163,7 +163,7 @@ public class CoursesList extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(CoursesList.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(QualificationsList.this, android.R.layout.simple_list_item_1, android.R.id.text1, CourseList);
             ListView listView = (ListView) findViewById(R.id.List3);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -201,7 +201,7 @@ public class CoursesList extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(CoursesList.this);
+            mProgressDialog = new ProgressDialog(QualificationsList.this);
             mProgressDialog.setTitle("Gathering Additional Information");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -251,29 +251,29 @@ public class CoursesList extends AppCompatActivity {
 
 
 
-            Log.i("CoursesList", FileManipulation.fileToString(CoursesList.this,"courses"));
-            Log.i("websites",FileManipulation.fileToString(CoursesList.this,"websites" ));
-            Log.i("examboards",FileManipulation.fileToString(CoursesList.this, "examboards"));
-            Log.i("qualifications",FileManipulation.fileToString(CoursesList.this, "qualifications" ));
-            Log.i("importantdates",FileManipulation.fileToString(CoursesList.this,"importantdates"));
+            Log.i("QualificationsList", FileManipulation.fileToString(QualificationsList.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(QualificationsList.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(QualificationsList.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(QualificationsList.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(QualificationsList.this,"importantdates"));
 
 
-            FileManipulation.appendToFile(CoursesList.this,"courses", StringManipulation.trimStringToCourse(subject));
-            FileManipulation.appendToFile(CoursesList.this,"websites",website);
-            FileManipulation.appendToFile(CoursesList.this,"examboards",examBoard);
-            FileManipulation.appendToFile( CoursesList.this,"qualifications",qualification);
-            FileManipulation.appendToFile(CoursesList.this,"importantdates",importantDate);
+            FileManipulation.appendToFile(QualificationsList.this,"courses", StringManipulation.trimStringToCourse(subject));
+            FileManipulation.appendToFile(QualificationsList.this,"websites",website);
+            FileManipulation.appendToFile(QualificationsList.this,"examboards",examBoard);
+            FileManipulation.appendToFile( QualificationsList.this,"qualifications",qualification);
+            FileManipulation.appendToFile(QualificationsList.this,"importantdates",importantDate);
 
 
-            Log.i("CoursesList",FileManipulation.fileToString(CoursesList.this,"courses"));
-            Log.i("websites",FileManipulation.fileToString(CoursesList.this,"websites" ));
-            Log.i("examboards",FileManipulation.fileToString(CoursesList.this, "examboards"));
-            Log.i("qualifications",FileManipulation.fileToString(CoursesList.this, "qualifications" ));
-            Log.i("importantdates",FileManipulation.fileToString(CoursesList.this,"importantdates"));
+            Log.i("QualificationsList",FileManipulation.fileToString(QualificationsList.this,"courses"));
+            Log.i("websites",FileManipulation.fileToString(QualificationsList.this,"websites" ));
+            Log.i("examboards",FileManipulation.fileToString(QualificationsList.this, "examboards"));
+            Log.i("qualifications",FileManipulation.fileToString(QualificationsList.this, "qualifications" ));
+            Log.i("importantdates",FileManipulation.fileToString(QualificationsList.this,"importantdates"));
 
 
 
-            Intent intent = new Intent(CoursesList.this, Home.class);
+            Intent intent = new Intent(QualificationsList.this, Home.class);
             startActivity(intent);
             mProgressDialog.dismiss();
 

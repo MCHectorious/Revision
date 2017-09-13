@@ -1,25 +1,17 @@
 package com.example.betteridgeh16.revisionapp.Utils;
 
 import android.content.Context;
-import android.provider.MediaStore;
 import android.util.Log;
-
-import com.example.betteridgeh16.revisionapp.Activities.CoursesList;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by betteridgeh16 on 2/23/2017.

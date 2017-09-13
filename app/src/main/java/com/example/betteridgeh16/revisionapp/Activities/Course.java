@@ -52,6 +52,15 @@ public class Course extends AppCompatActivity {
         subject = FileManipulation.fileToStringArray(Course.this,"courses")[subjectIndex];
         setTitle(subject);
 
+        Button CourseInforListButton = (Button) findViewById(R.id.listOfInformation);
+        CourseInforListButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(Course.this, CourseInformationList.class);
+                startActivity(intent);
+            }
+        });
+
         (new getPastPapersAndMarkSchemes()).execute();
         enableOrDisableSpecButton();
 
@@ -76,7 +85,7 @@ public class Course extends AppCompatActivity {
         Log.i("File name is", subject+"Specification.txt");
         if (new File(getFilesDir(), subject+"Specification.txt").exists()){
             downloadSpecButton.setEnabled(false);
-            downloadSpecButton.setText("You have already downloaded the Specification for this subject");
+            downloadSpecButton.setText("View Specification (not working yet)");
             Log.i("Text file", "Does exist");
         }else{
             Log.i("Text file", "Doesn't exist");

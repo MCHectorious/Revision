@@ -16,7 +16,56 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/NewAppTheme.PopupOverlay" />
+            app:popupTheme="@style/NewAppTheme.PopupOverlay" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_alignParentTop="true">
+
+
+                <ToggleButton
+                    android:id="@+id/SentenceToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="ToggleButton"
+                    android:textOff="Sentence"
+                    android:textOn="Sentence"
+                    android:layout_alignParentBottom="true" />
+
+                <ToggleButton
+                    android:id="@+id/FlashcardToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="ToggleButton"
+                    android:textOff="Flashcard"
+                    android:textOn="Flashcard"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/SentenceToggle"
+                    android:layout_toEndOf="@+id/SentenceToggle" />
+
+                <ToggleButton
+                    android:id="@+id/EditToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/FlashcardToggle"
+                    android:layout_toEndOf="@+id/FlashcardToggle"
+                    android:text="ToggleButton"
+                    android:textOff="Edit"
+                    android:textOn="Edit" />
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
